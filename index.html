@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lehren. Lieben. — Podcasts für Lehrkräfte</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #FDF8F2;
+  --cream2:   #FFF9F5;
+  --parchment:#F5EEE4;
+  --ink:      #2A2018;
+  --ink2:     #4A3F35;
+  --muted:    #9A8F87;
+  --muted2:   #B8AFA8;
+  --amber:    #E8953A;
+  --amber-soft: rgba(232,149,58,.10);
+  --teal:     #25B397;
+  --teal-soft: rgba(37,179,151,.10);
+  --shadow-sm: 0 2px 16px rgba(80,55,30,.07);
+  --shadow-md: 0 8px 40px rgba(80,55,30,.10);
+  --shadow-lg: 0 20px 80px rgba(80,55,30,.12);
+  --r: 16px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── UTILS ────────────────────────── */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 48px; }
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+.eyebrow {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted);
+}
+.eyebrow.amber { color: var(--amber); }
+.eyebrow.teal  { color: var(--teal); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+
+/* ── BUTTONS ────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 100px;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 16px;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-amber {
+  background: var(--amber); color: #fff;
+  box-shadow: 0 4px 20px rgba(232,149,58,.35);
+}
+.btn-amber:hover { box-shadow: 0 8px 28px rgba(232,149,58,.45); }
+.btn-teal {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 4px 20px rgba(37,179,151,.30);
+}
+.btn-teal:hover { box-shadow: 0 8px 28px rgba(37,179,151,.40); }
+.btn-soft {
+  background: rgba(42,32,24,.06); color: var(--ink2);
+}
+.btn-soft:hover { background: rgba(42,32,24,.10); }
+.btn-outline {
+  background: transparent; color: var(--ink2);
+  border: 1.5px solid rgba(42,32,24,.18);
+}
+.btn-outline:hover { border-color: var(--ink2); }
+
+/* ── NAV ────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0; transition: background .4s, box-shadow .4s;
+}
+nav.scrolled {
+  background: rgba(253,248,242,.94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(80,55,30,.08);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; height: 68px; gap: 40px;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 22px; color: var(--ink); text-decoration: none;
+  letter-spacing: -.3px; flex-shrink: 0;
+}
+.nav-logo em { color: var(--amber); font-style: normal; }
+.nav-links { display: flex; gap: 32px; flex: 1; }
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 16px; font-weight: 500; transition: color .15s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+/* ── HERO ──────────────────────────── */
+#hero {
+  min-height: 100svh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 68px;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 64px 80px 48px;
+}
+.hero-eyebrow { margin-bottom: 20px; }
+.hero-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(58px, 6vw, 84px);
+  line-height: 1.0;
+  letter-spacing: -1.5px;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.hero-display em { color: var(--amber); font-style: italic; }
+.hero-sub {
+  font-size: 19px; font-weight: 300;
+  color: var(--ink2); line-height: 1.75;
+  max-width: 400px; margin-bottom: 36px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.hero-platforms { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.plat {
+  padding: 6px 16px; border-radius: 100px;
+  border: 1.5px solid rgba(42,32,24,.15);
+  font-size: 12px; font-weight: 600; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; transition: all .2s;
+}
+.plat:hover { border-color: var(--amber); color: var(--amber); }
+
+.hero-right {
+  position: relative; overflow: hidden;
+}
+.hero-photo {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center center;
+  display: block;
+}
+.hero-photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--cream) 0%, transparent 15%),
+              linear-gradient(to top, var(--cream) 0%, transparent 20%);
+  background-position: right center;
+}
+.hero-stat {
+  position: absolute; bottom: 40px; left: -20px;
+  background: #fff; border-radius: 14px;
+  padding: 16px 22px;
+  box-shadow: var(--shadow-md);
+}
+.hero-stat-num {
+  font-family: 'Playfair Display', serif; font-size: 36px;
+  font-weight: 700; color: var(--amber); line-height: 1;
+}
+.hero-stat-label { font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 3px; }
+
+/* ── SECTION GENERIC ───────────────── */
+section { padding: 110px 0; }
+.s-header { margin-bottom: 64px; }
+.s-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: clamp(38px, 4.1vw, 58px);
+  letter-spacing: -.8px; line-height: 1.1;
+  margin-top: 12px; color: var(--ink);
+}
+.s-sub {
+  font-size: 18px; font-weight: 300; color: var(--ink2);
+  line-height: 1.75; max-width: 500px; margin-top: 16px;
+}
+.divider { height: 1px; background: rgba(42,32,24,.08); margin: 0; }
+
+/* ── PODCASTS ──────────────────────── */
+.podcast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.podcast-card {
+  border-radius: var(--r); padding: 48px;
+  box-shadow: var(--shadow-md);
+  transition: transform .25s, box-shadow .25s;
+  position: relative; overflow: hidden;
+}
+.podcast-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.podcast-card.amber { background: linear-gradient(135deg, #fff 60%, rgba(232,149,58,.08)); }
+.podcast-card.teal  { background: linear-gradient(135deg, #fff 60%, rgba(37,179,151,.08)); }
+.pc-accent {
+  position: absolute; top: 0; left: 48px; right: 48px; height: 3px;
+  border-radius: 0 0 3px 3px;
+}
+.pc-accent.amber { background: var(--amber); }
+.pc-accent.teal  { background: var(--teal); }
+.pc-bg-num {
+  position: absolute; bottom: -10px; right: 24px;
+  font-family: 'Playfair Display', serif; font-size: 132px;
+  font-weight: 700; opacity: .04; line-height: 1; color: var(--ink);
+  user-select: none;
+}
+.pc-eyebrow { margin-bottom: 16px; }
+.pc-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 27px; letter-spacing: -.3px; line-height: 1.2;
+  margin-bottom: 16px; color: var(--ink);
+}
+.pc-desc { font-size: 16px; font-weight: 300; color: var(--ink2); line-height: 1.75; margin-bottom: 32px; }
+.pc-divider { height: 1px; background: rgba(42,32,24,.08); margin-bottom: 28px; }
+.pc-plats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.pc-plat {
+  padding: 5px 14px; border-radius: 100px; font-size: 11px;
+  font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+  border: 1.5px solid; text-decoration: none; transition: opacity .15s;
+}
+.pc-plat:hover { opacity: .65; }
+.pc-plat.amber { border-color: var(--amber); color: var(--amber); }
+.pc-plat.teal  { border-color: var(--teal);  color: var(--teal); }
+
+/* ── EPISODES ──────────────────────── */
+#episoden { background: var(--parchment); }
+.ep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+.ep-card {
+  background: var(--cream2); border-radius: var(--r); padding: 32px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s;
+  position: relative;
+}
+.ep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.ep-top-bar { position: absolute; top: 0; left: 32px; right: 32px; height: 3px; border-radius: 0 0 3px 3px; }
+.ep-top-bar.amber { background: linear-gradient(90deg, var(--amber), transparent); }
+.ep-top-bar.teal  { background: linear-gradient(90deg, var(--teal),  transparent); }
+.ep-show-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.ep-show { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+.ep-show.amber { color: var(--amber); }
+.ep-show.teal  { color: var(--teal); }
+.ep-num { font-size: 12px; color: var(--muted2); margin-left: auto; }
+.ep-title {
+  font-family: 'Playfair Display', serif; font-size: 22px;
+  font-weight: 600; line-height: 1.3; margin-bottom: 10px; color: var(--ink);
+}
+.ep-desc { font-size: 14px; font-weight: 300; color: var(--ink2); line-height: 1.7; margin-bottom: 22px; }
+.ep-footer { display: flex; align-items: center; gap: 12px; }
+.ep-duration { font-size: 13px; color: var(--muted2); }
+.ep-btn {
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  border: 1.5px solid; text-decoration: none; transition: opacity .15s;
+  background: transparent; cursor: pointer;
+}
+.ep-btn.amber { border-color: var(--amber); color: var(--amber); }
+.ep-btn.teal  { border-color: var(--teal);  color: var(--teal); }
+.ep-btn:hover { opacity: .65; }
+
+.random-bar {
+  background: #fff; border-radius: var(--r);
+  padding: 28px 36px;
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.random-title {
+  font-family: 'Playfair Display', serif; font-size: 22px;
+  font-weight: 600; color: var(--ink); margin-bottom: 5px;
+}
+.random-sub { font-size: 14px; font-weight: 300; color: var(--muted); }
+#random-result { margin-top: 20px; }
+
+/* ── MENTOR ────────────────────────── */
+.mentor-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.mentor-chips { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.mentor-chip {
+  padding: 14px 20px; border-radius: 12px;
+  background: rgba(232,149,58,.07);
+  font-size: 16px; font-weight: 400; color: var(--ink2);
+  cursor: pointer; transition: background .2s, transform .2s;
+  display: flex; align-items: center; gap: 12px;
+}
+.mentor-chip:hover { background: rgba(232,149,58,.15); transform: translateX(4px); }
+.mentor-chip::before { content: '→'; color: var(--amber); font-weight: 700; }
+
+.mentor-frame {
+  background: #fff; border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.mentor-hd {
+  padding: 20px 24px; border-bottom: 1px solid rgba(42,32,24,.07);
+  display: flex; align-items: center; gap: 14px;
+  background: var(--cream2);
+}
+.mentor-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--amber); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 20px; color: #fff;
+}
+.mentor-name { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 17px; color: var(--ink); }
+.mentor-tagline { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.chat-body {
+  padding: 24px; height: 280px;
+  display: flex; flex-direction: column; gap: 14px;
+  overflow-y: auto;
+}
+.chat-body::-webkit-scrollbar { width: 4px; }
+.chat-body::-webkit-scrollbar-track { background: transparent; }
+.chat-body::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 4px; }
+.bubble {
+  padding: 12px 18px; border-radius: 16px;
+  font-size: 16px; font-weight: 400; line-height: 1.6;
+  max-width: 85%;
+}
+.bubble-bot { background: var(--parchment); color: var(--ink2); border-radius: 4px 16px 16px 16px; }
+.bubble-user {
+  background: var(--amber); color: #fff;
+  margin-left: auto; border-radius: 16px 4px 16px 16px;
+}
+.chat-input-row {
+  border-top: 1px solid rgba(42,32,24,.07);
+  padding: 16px 20px; display: flex; gap: 10px;
+}
+.chat-input {
+  flex: 1; background: var(--parchment); border: none; border-radius: 100px;
+  padding: 11px 18px; color: var(--ink); font-size: 16px;
+  font-family: 'Nunito', sans-serif; outline: none;
+}
+.chat-input::placeholder { color: var(--muted2); }
+.mentor-note {
+  font-size: 12px; color: var(--muted2); text-align: center;
+  padding: 8px 20px 16px;
+}
+.mentor-note a { color: var(--amber); text-decoration: none; }
+
+/* ── HOSTS ─────────────────────────── */
+#hosts { background: var(--cream2); }
+.hosts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.host-card {
+  background: #fff; border-radius: 20px;
+  box-shadow: var(--shadow-md); overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.host-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.host-photo-wrap { position: relative; }
+.host-photo {
+  width: 100%; height: 300px; object-fit: cover;
+  object-position: center 15%; display: block;
+}
+.host-photo-gradient {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to top, #fff, transparent);
+}
+.host-body { padding: 28px 36px 36px; }
+.host-podcast { margin-bottom: 10px; }
+.host-name {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 31px; letter-spacing: -.5px; color: var(--ink);
+  margin-bottom: 4px;
+}
+.host-role { font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 16px; }
+.host-bio { font-size: 16px; font-weight: 300; color: var(--ink2); line-height: 1.75; margin-bottom: 22px; }
+.host-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.host-link {
+  padding: 6px 14px; border-radius: 100px;
+  border: 1.5px solid rgba(42,32,24,.15);
+  font-size: 12px; font-weight: 600; color: var(--ink2);
+  text-decoration: none; transition: all .15s;
+}
+.host-link:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ── COMMUNITY ─────────────────────── */
+.community-wrap {
+  background: #fff; border-radius: 24px;
+  padding: 80px; text-align: center;
+  box-shadow: var(--shadow-md);
+  position: relative; overflow: hidden;
+}
+.community-glow {
+  position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 200px;
+  background: radial-gradient(ellipse, rgba(232,149,58,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.comm-headline {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(40px, 4.9vw, 62px);
+  letter-spacing: -1.5px; line-height: 1.05;
+  margin: 16px 0 20px; color: var(--ink);
+}
+.comm-headline em { color: var(--amber); font-style: italic; }
+.comm-sub {
+  font-size: 18px; font-weight: 300; color: var(--ink2);
+  max-width: 460px; margin: 0 auto 36px; line-height: 1.75;
+}
+.email-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto 12px; }
+.email-inp {
+  flex: 1; background: var(--parchment); border: none; border-radius: 100px;
+  padding: 14px 22px; color: var(--ink); font-size: 16px;
+  font-family: 'Nunito', sans-serif; outline: none;
+}
+.email-inp::placeholder { color: var(--muted2); }
+.fine-print { font-size: 12px; color: var(--muted2); }
+.perks { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 52px; text-align: left; }
+.perk {
+  background: var(--parchment); border-radius: 14px;
+  padding: 24px; box-shadow: var(--shadow-sm);
+}
+.perk-title { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+.perk-desc { font-size: 14px; font-weight: 300; color: var(--ink2); line-height: 1.65; }
+.perk.soon { opacity: .5; }
+.perk-soon { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+
+/* ── GASTBEWERBUNG ─────────────────── */
+#gastbewerbung { background: var(--parchment); }
+.gast-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+.gast-form { display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+}
+.field-inp, .field-sel, .field-ta {
+  background: #fff; border: none; border-radius: 12px;
+  padding: 14px 20px; color: var(--ink); font-size: 16px;
+  font-family: 'Nunito', sans-serif; outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s;
+  width: 100%;
+}
+.field-inp:focus, .field-sel:focus, .field-ta:focus {
+  box-shadow: 0 0 0 2px rgba(232,149,58,.35), var(--shadow-sm);
+}
+.field-inp::placeholder, .field-ta::placeholder { color: var(--muted2); }
+.field-sel { appearance: none; cursor: pointer; color: var(--ink2); }
+.field-ta { resize: vertical; min-height: 120px; line-height: 1.65; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── FOOTER ─────────────────────────── */
+footer {
+  background: var(--ink); color: rgba(253,248,242,.85);
+  padding: 72px 0 40px;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+.footer-brand {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 24px; letter-spacing: -.3px; margin-bottom: 12px;
+  color: var(--cream);
+}
+.footer-brand em { color: var(--amber); font-style: normal; }
+.footer-tagline { font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(253,248,242,.5); margin-bottom: 20px; }
+.footer-social { display: flex; gap: 10px; }
+.f-soc {
+  padding: 6px 14px; border-radius: 100px;
+  border: 1px solid rgba(253,248,242,.15);
+  font-size: 12px; font-weight: 600; letter-spacing: .5px;
+  text-transform: uppercase; color: rgba(253,248,242,.5);
+  text-decoration: none; transition: all .15s;
+}
+.f-soc:hover { border-color: var(--amber); color: var(--amber); }
+.f-col-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(253,248,242,.35);
+  margin-bottom: 18px;
+}
+.f-links { display: flex; flex-direction: column; gap: 10px; }
+.f-link { font-size: 16px; font-weight: 300; color: rgba(253,248,242,.6); text-decoration: none; transition: color .15s; }
+.f-link:hover { color: var(--cream); }
+.footer-bottom {
+  border-top: 1px solid rgba(253,248,242,.08);
+  padding-top: 28px; display: flex;
+  justify-content: space-between; align-items: center;
+}
+.f-copy { font-size: 13px; color: rgba(253,248,242,.3); }
+.f-legal { display: flex; gap: 20px; }
+.f-legal a { font-size: 13px; color: rgba(253,248,242,.3); text-decoration: none; }
+.f-legal a:hover { color: var(--cream); }
+
+/* ── TWEAKS ─────────────────────────── */
+#tweaks-panel {
+  display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: #fff; border-radius: 16px; padding: 22px;
+  width: 240px; box-shadow: var(--shadow-lg);
+}
+#tweaks-panel h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 18px; }
+.tw-row { margin-bottom: 16px; }
+.tw-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+.tw-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.tw-opt {
+  padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;
+  border: 1.5px solid rgba(42,32,24,.15); color: var(--ink2); cursor: pointer; transition: all .15s;
+}
+.tw-opt.active, .tw-opt:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-soft); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="uploads/Transparent Logo.png" alt="" style="height:36px;width:auto;vertical-align:middle;margin-right:8px;">Lehren <em>Lieben.</em></a>
+    <div class="nav-links">
+      <a href="#podcasts">Podcasts</a>
+      <a href="#mentor">KI-Mentor</a>
+      <a href="#hosts">Über uns</a>
+      <a href="#community">Community</a>
+    </div>
+    <a href="#community" class="btn btn-amber" style="font-size:13px;padding:10px 22px;">Newsletter</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal"><span class="eyebrow amber">Herzlich willkommen bei</span></div>
+    <h1 class="hero-display reveal reveal-d1">
+      Lehren<br><em>Lieben.</em>
+    </h1>
+    <p class="hero-sub reveal reveal-d2">Wir möchten Lehrkräften helfen, ihren Beruf (wieder) zu lieben — mit guten Gesprächen, dem Lehrkräftementor und dem geballten Wissen von begeisterten  Lehrkräften.</p>
+    <div class="hero-ctas reveal reveal-d2">
+      <a href="#community" class="btn btn-amber">Tritt der Community bei</a>
+      <a href="#podcasts" class="btn btn-soft">Zu den Podcasts</a>
+    </div>
+    <div class="hero-platforms reveal reveal-d3">
+      <a href="https://lehrkraftbesterjobderwelt.podigee.io" target="_blank" class="plat">Spotify</a>
+      <a href="#" class="plat">Apple Podcasts</a>
+      <a href="#" class="plat">YouTube</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="uploads/Kein Titel (50 x 30 cm)-2.png" alt="Tobias und Alexander" class="hero-photo" id="hero-img">
+    <div class="hero-photo-overlay"></div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PODCASTS -->
+<section id="podcasts">
+  <div class="container">
+    <div class="s-header reveal">
+      <span class="eyebrow">LBJDW --- AUSGEZEICHNETE LEHRKRÄFTE</span>
+      <h2 class="s-title">Podcasts</h2>
+      <p class="s-sub">Zwei Formate, eine Mission — Lehrkräfte kraftvoll, zuversichtlich und energievoll in den Schulalltag zu begleiten.</p>
+    </div>
+    <div class="podcast-grid">
+      <div class="podcast-card amber reveal">
+        <div class="pc-accent amber"></div>
+        <div class="pc-bg-num">01</div>
+        <div class="pc-eyebrow"><span class="eyebrow amber">Der Positiv-Podcast</span></div>
+        <h3 class="pc-title">Lehrkraft — Bester Job<br>der Welt?!</h3>
+        <p class="pc-desc">Tobi und Alex sprechen mal zu zweit, mal mit Experten und tollen Impulsgebern aus den unterschiedlichsten Bereichen über alles rund um den Lehrberuf. Ehrlich, persönlich und mit viel Freude an der Sache.</p>
+        <div class="pc-divider"></div>
+        <div class="pc-plats">
+          <a href="https://lehrkraftbesterjobderwelt.podigee.io" target="_blank" class="pc-plat amber">Podigee</a>
+          <a href="#" class="pc-plat amber">Spotify</a>
+          <a href="#" class="pc-plat amber">Apple</a>
+          <a href="#" class="pc-plat amber">YouTube</a>
+        </div>
+        <a href="https://lehrkraftbesterjobderwelt.podigee.io/12-neue-episode" target="_blank" class="btn btn-amber" style="font-size:13px;">Neueste Folge</a>
+      </div>
+      <div class="podcast-card teal reveal reveal-d1">
+        <div class="pc-accent teal"></div>
+        <div class="pc-bg-num">02</div>
+        <div class="pc-eyebrow"><span class="eyebrow teal">Porträt-Podcast</span></div>
+        <h3 class="pc-title">Deutschlands ausgezeichnete Lehrkräfte</h3>
+        <p class="pc-desc">Hier kommen Lehrkräfte zu Wort, die aus Sicht ihrer Schüler inspirierend, motivierend und begeisternd sind. Über 80% der Gäste sind Gewinner des Deutschen Lehrkräftepreises — wir wollen ALLES von ihnen wissen.</p>
+        <div class="pc-divider"></div>
+        <div class="pc-plats">
+          <a href="https://deutschlandsausgezeichnetelaehrkraefte.podigee.io" target="_blank" class="pc-plat teal">Podigee</a>
+          <a href="#" class="pc-plat teal">Spotify</a>
+          <a href="#" class="pc-plat teal">Apple</a>
+          <a href="#" class="pc-plat teal">YouTube</a>
+        </div>
+        <a href="https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/12-new-episode" target="_blank" class="btn btn-teal" style="font-size:13px;">Neueste Folge</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EPISODEN -->
+<section id="episoden">
+  <div class="container">
+    <div class="s-header" style="display:flex;align-items:flex-end;justify-content:space-between;">
+      <div class="reveal">
+        <span class="eyebrow">Reinhören</span>
+        <h2 class="s-title">Frisch raus.</h2>
+      </div>
+      <a href="#" class="btn btn-outline reveal" style="margin-bottom:6px;">Alle Episoden</a>
+    </div>
+    <div class="ep-grid">
+      <div class="ep-card reveal">
+        <div class="ep-top-bar amber"></div>
+        <div class="ep-show-row">
+          <span class="ep-show amber">Bester Job der Welt</span>
+          <span class="ep-num">#17</span>
+        </div>
+        <h3 class="ep-title">Ferien-Talk: Rebellentreff, Rückenwind und die erste Maxime guter Lehrkraftarbeit</h3>
+        <p class="ep-desc">Schokohasen verputzt, Ferienakkus auf grün, Schultaschen stehen bereit. Alex und Tobi nehmen euch hinter die Kulissen — und verraten die allererste der 10 Maximen guter Lehrkraftarbeit.</p>
+        <div class="ep-footer">
+          <span class="ep-duration">42 min</span>
+          <a href="https://lehrkraftbesterjobderwelt.podigee.io/18-17-ferientalk" target="_blank" class="ep-btn amber">Hören</a>
+          <a href="https://lehrkraftbesterjobderwelt.podigee.io/18-17-ferientalk" target="_blank" class="ep-btn" style="border-color:rgba(42,32,24,.2);color:var(--muted);">Shownotes</a>
+        </div>
+      </div>
+      <div class="ep-card reveal reveal-d1">
+        <div class="ep-top-bar teal"></div>
+        <div class="ep-show-row">
+          <span class="ep-show teal">Ausgezeichnete Lehrkräfte</span>
+          <span class="ep-num">Neu</span>
+        </div>
+        <h3 class="ep-title">Monika Ried-Broschwitz — Preisträgerin des Deutschen Lehrkräftepreises 2024</h3>
+        <p class="ep-desc">Erstmals gemeinsam am Mikrofon: Tobi und Alex sprechen mit Monika Ried-Broschwitz über Haltung, Vorbilder und das, was Schüler:innen wirklich brauchen, um aufzublühen.</p>
+        <div class="ep-footer">
+          <span class="ep-duration">58 min</span>
+          <a href="https://deutschlandsausgezeichnetelaehrkraefte.podigee.io" target="_blank" class="ep-btn teal">Hören</a>
+          <a href="https://deutschlandsausgezeichnetelaehrkraefte.podigee.io" target="_blank" class="ep-btn" style="border-color:rgba(42,32,24,.2);color:var(--muted);">Shownotes</a>
+        </div>
+      </div>
+    </div>
+    <div class="random-bar reveal">
+      <div>
+        <div class="random-title">Nicht sicher, wo anfangen?</div>
+        <div class="random-sub">Lass uns eine zufällige Episode für dich aussuchen.</div>
+      </div>
+      <button class="btn btn-amber" onclick="pickRandom()">Lass den Zufall entscheiden 🍀</button>
+    </div>
+    <div id="random-result"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MENTOR -->
+<section id="mentor">
+  <div class="container">
+    <div class="mentor-layout">
+      <div class="reveal">
+        <span class="eyebrow amber">KI-gestütztes Tool</span>
+        <h2 class="s-title" style="margin-top:12px;">Der<br>Lehrkräftementor</h2>
+        <p class="s-sub">Auf Basis der Transkripte aller Podcastfolgen ist ein KI-Mentor entstanden. Die Antworten stammen aus dem geballten Wissen der Preisträgerinnen und weiterer vorbildlicher Lehrkräfte. Und mit jeder neuen Folge wächst sein Wissen.</p>
+        <div class="mentor-chips">
+          <div class="mentor-chip">Wie kann ich einen guten Draht zu meiner Klasse aufbauen?</div>
+          <div class="mentor-chip">Welche Unterrichtsrituale sind sinnvoll?</div>
+          <div class="mentor-chip">Welche Fortbildungen sind zu empfehlen?</div>
+          <div class="mentor-chip">Wie beugen Preisträger Burnout vor?</div>
+        </div>
+      </div>
+      <div class="mentor-frame reveal reveal-d1">
+        <div class="mentor-hd">
+          <div class="mentor-icon">L</div>
+          <div>
+            <div class="mentor-name">Lehrkräftementor</div>
+            <div class="mentor-tagline">Powered by Gemini · basiert auf echten Podcastgesprachen</div>
+          </div>
+          <a href="https://gemini.google.com/gem/1CAzvlRUi0MIu5oh-AW66edGvG49J7KfB?usp=sharing" target="_blank" class="btn btn-soft" style="margin-left:auto;font-size:11px;padding:8px 16px;border-radius:100px;">Vollbild</a>
+        </div>
+        <div class="chat-body" id="chat-body">
+          <div class="bubble bubble-bot">Hallo! Wie kann ich dir heute helfen?</div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-input" id="chat-input" placeholder="Frag mich etwas..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="btn btn-amber" style="font-size:13px;padding:11px 20px;" onclick="sendChat()">Senden</button>
+        </div>
+        <div class="mentor-note">Direkt zum Mentor: <a href="https://gemini.google.com/gem/1CAzvlRUi0MIu5oh-AW66edGvG49J7KfB?usp=sharing" target="_blank">Lehrkräftementor starten</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOSTS -->
+<section id="hosts">
+  <div class="container">
+    <div class="s-header reveal">
+      <span class="eyebrow">Die Gesichter dahinter</span>
+      <h2 class="s-title">Menschen,<br>keine Marken.</h2>
+    </div>
+    <div class="hosts-grid">
+      <div class="host-card reveal">
+        <div class="host-photo-wrap">
+          <img src="uploads/Tobias.jpg" alt="Tobias Kammer" class="host-photo">
+          <div class="host-photo-gradient"></div>
+        </div>
+        <div class="host-body">
+          <div class="host-podcast"><span class="eyebrow amber">Bester Job der Welt?!</span></div>
+          <h3 class="host-name">Tobias Kammer</h3>
+          <div class="host-role">Gymnasiallehrer · Podcaster · Methodenbuch-Autor</div>
+          <p class="host-bio">Tobi unterrichtet Französisch und Pädagogik am Gymnasium und würde mit dem Deutschen Lehrerpreis für innovativen Unterricht ausgezeichnet. Seine Lernvideos erreichen Millionen Klicks — und er versucht nebenbei, seinen drei Kindern zu erklaren, warum Papa schon wieder am Schreibtisch sitzt.</p>
+          <div class="host-links">
+            <a href="#" class="host-link">SMARTwarts</a>
+            <a href="#" class="host-link">LinkedIn</a>
+            <a href="#" class="host-link">Deutscher Lehrerpreis</a>
+          </div>
+        </div>
+      </div>
+      <div class="host-card reveal reveal-d1">
+        <div class="host-photo-wrap">
+          <img src="uploads/Alexander.jpg.avif" alt="Alexander Bohle" class="host-photo" style="object-position:center 25%;">
+          <div class="host-photo-gradient"></div>
+        </div>
+        <div class="host-body">
+          <div class="host-podcast"><span class="eyebrow teal">Ausgezeichnete Lehrkräfte</span></div>
+          <h3 class="host-name">Alexander Bohle</h3>
+          <div class="host-role">Berufskolleg-Lehrer · Trainer · Speaker</div>
+          <p class="host-bio">Alex unterrichtet am Berufskolleg und bildet Lehrkräfte in Haltung, Stärken stärken und Potenzialentfaltung fort. Ausschlaggebend: seine eigene Sinnkrise 2017. Seitdem fragt er: "Was können wir tun, damit Schüler und Lehrkräfte gerne in die Schule kommen?"</p>
+          <div class="host-links">
+            <a href="https://www.alexanderboehle.com" target="_blank" class="host-link">alexanderboehle.com</a>
+            <a href="#" class="host-link">Stärken.net</a>
+            <a href="#" class="host-link">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="container">
+    <div class="community-wrap reveal">
+      <div class="community-glow"></div>
+      <span class="eyebrow">Sei dabei</span>
+      <h2 class="comm-headline">Trag dich ein.<br><em>Bleib dran.</em></h2>
+      <p class="comm-sub">Neue Folgen, exklusive Lehrtipps und der erste Zugang zur wachsenden Lehren-Lieben-Community — direkt in dein Postfach. spamfrei-Garantie :)</p>
+      <form class="email-form" onsubmit="handleNewsletter(event)">
+        <input type="email" class="email-inp" placeholder="deine@email.de" required>
+        <button type="submit" class="btn btn-amber">Eintragen</button>
+      </form>
+      <p class="fine-print">Kein Spam. Jederzeit abmeldbar. Wirklich.</p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-title">Neue Episoden</div>
+          <p class="perk-desc">Du erfahrst als Erste, wenn eine neue Episode live geht — mit Kurzfassung und Shownotes.</p>
+        </div>
+        <div class="perk">
+          <div class="perk-title">Exklusiv-Tipps</div>
+          <p class="perk-desc">Ressourcen und Methoden, die es nicht in den Podcast schaffen — nur für den Verteiler.</p>
+        </div>
+        <div class="perk soon">
+          <div class="perk-soon">Demnächst</div>
+          <div class="perk-title">Community-Raum</div>
+          <p class="perk-desc">Ein Ort für Lehrkräfte, die es ernst meinen. Im Aufbau.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GASTBEWERBUNG -->
+<section id="gastbewerbung">
+  <div class="container">
+    <div class="gast-layout">
+      <div class="reveal">
+        <span class="eyebrow amber">Werde Gast</span>
+        <h2 class="s-title" style="margin-top:12px;">Du hast eine Geschichte zu erzählen?</h2>
+        <p class="s-sub">Wenn du etwas zu sagen hast, das Lehrkräfte wirklich bewegt — meld dich. Wir hören zu.</p>
+        <div style="margin-top:40px;background:#fff;border-radius:16px;padding:28px;box-shadow:var(--shadow-sm);">
+          <p style="font-size:14px;font-weight:300;color:var(--ink2);line-height:1.75;">Wir suchen Lehrkräfte, Schulleitungen und Bildungsgestalter, die ihre Erfahrungen authentisch und auf Augenhöhe teilen wollen.</p>
+        </div>
+      </div>
+      <form class="gast-form reveal reveal-d1" onsubmit="handleGast(event)">
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">Name *</label>
+            <input type="text" class="field-inp" placeholder="Dein Name" required>
+          </div>
+          <div class="field">
+            <label class="field-label">E-Mail *</label>
+            <input type="email" class="field-inp" placeholder="deine@email.de" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Fur welchen Podcast? *</label>
+          <select class="field-sel" required>
+            <option value="" disabled selected>Bitte wählen...</option>
+            <option>Bester Job der Welt?!</option>
+            <option>Deutschlands ausgezeichnete Lehrkräfte</option>
+            <option>Beide / bin offen</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">Dein Thema / Deine Geschichte *</label>
+          <textarea class="field-ta" placeholder="Was möchtest du erzählen?" required></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label">Website / LinkedIn</label>
+          <input type="url" class="field-inp" placeholder="https://">
+        </div>
+        <button type="submit" class="btn btn-amber" style="align-self:flex-start;">Bewerbung absenden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="uploads/Transparent Logo.png" alt="" style="height:40px;width:auto;vertical-align:middle;margin-right:10px;">Lehren <em>Lieben.</em></div>
+        <p class="footer-tagline">Podcasts für Lehrkräfte,<br>die herausragend gut sein wollen.</p>
+        <div class="footer-social">
+          <a href="#" class="f-soc">Instagram</a>
+          <a href="#" class="f-soc">YouTube</a>
+          <a href="#" class="f-soc">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Podcasts</div>
+        <div class="f-links">
+          <a href="#" class="f-link">Bester Job der Welt?!</a>
+          <a href="#" class="f-link">Ausgezeichnete Lehrkräfte</a>
+          <a href="#" class="f-link">Alle Episoden</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Mitmachen</div>
+        <div class="f-links">
+          <a href="#community" class="f-link">Newsletter</a>
+          <a href="#gastbewerbung" class="f-link">Als Gast bewerben</a>
+          <a href="#mentor" class="f-link">KI-Mentor</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Rechtliches</div>
+        <div class="f-links">
+          <a href="#" class="f-link">Impressum</a>
+          <a href="#" class="f-link">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="f-copy">© 2026 Lehren. Lieben. Alle Rechte vorbehalten.</div>
+      <div class="f-legal">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- TWEAKS -->
+<div id="tweaks-panel">
+  <h3>Tweaks</h3>
+  <div class="tw-row">
+    <span class="tw-label">Hero-Foto</span>
+    <div class="tw-opts">
+      <div class="tw-opt active" onclick="setHeroImg('uploads/Gruppe.png.avif',this)">Beide</div>
+      <div class="tw-opt" onclick="setHeroImg('uploads/Tobias.jpg',this)">Tobias</div>
+      <div class="tw-opt" onclick="setHeroImg('uploads/Alexander.jpg.avif',this)">Alexander</div>
+    </div>
+  </div>
+  <div class="tw-row">
+    <span class="tw-label">Podcast-1 Farbe</span>
+    <div class="tw-opts">
+      <div class="tw-opt active" onclick="setP1('#E8953A',this)">Amber</div>
+      <div class="tw-opt" onclick="setP1('#E86060',this)">Coral</div>
+      <div class="tw-opt" onclick="setP1('#8B6CE8',this)">Lila</div>
+    </div>
+  </div>
+  <div class="tw-row">
+    <span class="tw-label">Hintergrund</span>
+    <div class="tw-opts">
+      <div class="tw-opt active" onclick="setBg('#FDF8F2','#F5EEE4',this)">Sand</div>
+      <div class="tw-opt" onclick="setBg('#F5F7FA','#EDF0F5',this)">Kühles Weiß</div>
+      <div class="tw-opt" onclick="setBg('#FFFEF9','#F8F6EE',this)">Warmes Weiß</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// NAV scroll
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), { passive: true });
+
+// Reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+setTimeout(() => document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible')), 80);
+
+// Random episode
+const episodes = [
+  { show: 'Bester Job der Welt', cls: 'amber', ep: '#17', title: 'Ferien-Talk: Rebellentreff und Rückenwind', desc: 'Alex und Tobi nehmen euch hinter die Kulissen — und verraten die erste Maxime guter Lehrkraftarbeit.', dur: '42 min', url: 'https://lehrkraftbesterjobderwelt.podigee.io/18-17-ferientalk' },
+  { show: 'Bester Job der Welt', cls: 'amber', ep: '#16', title: 'Focus on the Good — Biancas Weg', desc: 'Wie Bianca Weber eine Schule nach Corona zu agilem Projektlernen gebracht hat. Die Taufpatin dieses Podcasts im Gespräch.', dur: '60 min', url: 'https://lehrkraftbesterjobderwelt.podigee.io/16-bianca-schule-neu-denken' },
+  { show: 'Bester Job der Welt', cls: 'amber', ep: '#15', title: 'Deutscher Lehrkräftepreis 2026 — Tobi plaudert aus dem Nähkästchen', desc: 'Tobi war dabei — und teilt seine Eindrücke von einer der inspirierendsten Bildungsveranstaltungen des Jahres.', dur: '51 min', url: 'https://lehrkraftbesterjobderwelt.podigee.io/15-neue-episode' },
+  { show: 'Ausgezeichnete Lehrkräfte', cls: 'teal', ep: '#8', title: 'Dr. Tagrid Yousef — Fachfrau für Lehrkräftegesundheit', desc: 'Preisträgerin 2012 und Hirnforscherin. Über Transparenz, Beziehungsarbeit und warum sie seit 2014 neue Wege geht.', dur: '55 min', url: 'https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/8-new-episode' },
+  { show: 'Ausgezeichnete Lehrkräfte', cls: 'teal', ep: '#7', title: 'Tobias Rusteberg — Französisch und Deutsch', desc: 'Was passiert, wenn eine Lehrkraft ihren „Zweck der Existenz" findet? Eine Folge voller Inspiration.', dur: '62 min', url: 'https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/7-new-episode' },
+];
+function pickRandom() {
+  const ep = episodes[Math.floor(Math.random() * episodes.length)];
+  const r = document.getElementById('random-result');
+  r.style.display = 'block';
+  r.innerHTML = `<div class="ep-card" style="border:2px solid rgba(${ep.cls==='amber'?'232,149,58':'37,179,151'},.25);">
+    <div class="ep-top-bar ${ep.cls}"></div>
+    <div class="ep-show-row"><span class="ep-show ${ep.cls}">${ep.show}</span><span class="ep-num">${ep.ep}</span></div>
+    <h3 class="ep-title">${ep.title}</h3>
+    <p class="ep-desc">${ep.desc}</p>
+    <div class="ep-footer"><span class="ep-duration">${ep.dur}</span><a href="${ep.url||'#'}" target="_blank" class="ep-btn ${ep.cls}">Jetzt hören</a></div>
+  </div>`;
+}
+
+// Chat
+const replies = [
+  'Gute Frage! Hier sind drei Strategien, die wirklich helfen...',
+  'Das kenne ich! Lass mich dir einen konkreten Tipp geben...',
+  'Interessant — dazu gibt es auch eine tolle Episode von Tobias und Alexander!',
+  'Genau darum geht es. Ich empfehle zunachst diese Herangehensweise...',
+];
+function sendChat() {
+  const inp = document.getElementById('chat-input');
+  const body = document.getElementById('chat-body');
+  const msg = inp.value.trim(); if (!msg) return;
+  body.innerHTML += `<div class="bubble bubble-user">${msg}</div>`;
+  inp.value = '';
+  setTimeout(() => { body.innerHTML += `<div class="bubble bubble-bot">${replies[Math.floor(Math.random()*replies.length)]}</div>`; body.scrollTop = 9999; }, 650);
+  body.scrollTop = 9999;
+}
+document.querySelectorAll('.mentor-chip').forEach(c => c.addEventListener('click', () => { document.getElementById('chat-input').value = c.textContent.trim(); document.getElementById('chat-input').focus(); }));
+
+// Forms
+function handleNewsletter(e) { e.preventDefault(); const b = e.target.querySelector('button'); b.textContent = 'Eingetragen!'; b.style.background = 'var(--teal)'; }
+function handleGast(e) { e.preventDefault(); const b = e.target.querySelector('[type=submit]'); b.textContent = 'Gesendet!'; b.style.background = 'var(--teal)'; }
+
+// Tweaks
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+function setHeroImg(src, el) { document.getElementById('hero-img').src = src; el.closest('.tw-opts').querySelectorAll('.tw-opt').forEach(o => o.classList.remove('active')); el.classList.add('active'); }
+function setP1(col, el) { document.documentElement.style.setProperty('--amber', col); el.closest('.tw-opts').querySelectorAll('.tw-opt').forEach(o => o.classList.remove('active')); el.classList.add('active'); }
+function setBg(c, p, el) { document.documentElement.style.setProperty('--cream', c); document.documentElement.style.setProperty('--parchment', p); el.closest('.tw-opts').querySelectorAll('.tw-opt').forEach(o => o.classList.remove('active')); el.classList.add('active'); }
+</script>
+</body>
+</html>
