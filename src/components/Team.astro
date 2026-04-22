@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import tobiasImage from '~/assets/tobias.jpg';
 import alexanderImage from '~/assets/alexander.avif';
+import biancaImage from '~/assets/bianca.jpg';
 ---
 
 <section id="team">
@@ -134,7 +135,16 @@ import alexanderImage from '~/assets/alexander.avif';
 
       <article class="host-card small reveal reveal-d1">
         <div class="host-photo-wrap">
-          <div class="avatar-placeholder teal" aria-hidden="true">BW</div>
+          <Picture
+            src={biancaImage}
+            formats={['avif', 'webp']}
+            widths={[320, 500, 640]}
+            sizes="(max-width: 960px) 100vw, 420px"
+            alt="Bianca Weber"
+            class="host-photo"
+            style="object-position: center 20%;"
+          />
+          <div class="host-photo-gradient"></div>
         </div>
         <div class="host-body">
           <div class="host-podcast">
