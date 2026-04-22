@@ -1,0 +1,38 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Nav from '~/components/Nav.astro';
+import Footer from '~/components/Footer.astro';
+---
+
+<Layout
+  title="Impressum — Lehren Lieben."
+  description="Impressum und Kontaktangaben von Lehren Lieben."
+>
+  <Nav />
+
+  <main class="page-article">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Impressum</h1>
+
+    <h2>Angaben gemäß § 5 TMG</h2>
+    <address>
+      Tobias Kammer<br />
+      Kleine Buschstraße 46<br />
+      45143 Essen<br />
+      Deutschland
+    </address>
+    <p>
+      E-Mail:
+      <a href="mailto:hallo@tobiaskammer.de">hallo@tobiaskammer.de</a>
+    </p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <address>
+      Tobias Kammer &amp; Alexander Böhle<br />
+      Kleine Buschstraße 46<br />
+      45143 Essen
+    </address>
+  </main>
+
+  <Footer />
+</Layout>

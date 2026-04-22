@@ -1,5 +1,7 @@
 ---
-import { asset } from '~/lib/url';
+import { Picture } from 'astro:assets';
+import tobiasImage from '~/assets/tobias.jpg';
+import alexanderImage from '~/assets/alexander.avif';
 ---
 
 <section id="team">
@@ -13,8 +15,11 @@ import { asset } from '~/lib/url';
     <div class="team-primary">
       <article class="host-card reveal">
         <div class="host-photo-wrap">
-          <img
-            src={asset('uploads/Tobias.jpg')}
+          <Picture
+            src={tobiasImage}
+            formats={['avif', 'webp']}
+            widths={[400, 640, 800]}
+            sizes="(max-width: 960px) 100vw, 48vw"
             alt="Tobias Kammer"
             class="host-photo"
           />
@@ -37,20 +42,31 @@ import { asset } from '~/lib/url';
           </p>
           <div class="host-links">
             <a
-              href="https://smartwaerts.de"
+              href="https://www.tobiaskammer.de"
               target="_blank"
               rel="noopener"
-              class="host-link">SMARTwärts</a>
-            <a href="#" class="host-link">LinkedIn</a>
-            <a href="#" class="host-link">Deutscher Lehrerpreis</a>
+              class="host-link">tobiaskammer.de</a>
+            <a
+              href="https://www.linkedin.com/in/smartwaerts/"
+              target="_blank"
+              rel="noopener"
+              class="host-link">LinkedIn</a>
+            <a
+              href="https://www.lehrkraeftepreis.de/preistraeger/tobias-kammer-preistraeger-deutscher-lehrerpreis-2021/"
+              target="_blank"
+              rel="noopener"
+              class="host-link">Deutscher Lehrerpreis</a>
           </div>
         </div>
       </article>
 
       <article class="host-card reveal reveal-d1">
         <div class="host-photo-wrap">
-          <img
-            src={asset('uploads/Alexander.jpg.avif')}
+          <Picture
+            src={alexanderImage}
+            formats={['avif', 'webp']}
+            widths={[400, 640, 800]}
+            sizes="(max-width: 960px) 100vw, 48vw"
             alt="Alexander Böhle"
             class="host-photo"
             style="object-position: center 25%;"
@@ -77,9 +93,16 @@ import { asset } from '~/lib/url';
               target="_blank"
               rel="noopener"
               class="host-link">alexanderboehle.com</a>
-            <a href="#" class="host-link">Stärken.net</a>
-            <a href="#" class="host-link">EDF</a>
-            <a href="#" class="host-link">LinkedIn</a>
+            <a
+              href="https://staerken.net"
+              target="_blank"
+              rel="noopener"
+              class="host-link">Stärken.net</a>
+            <a
+              href="https://www.linkedin.com/in/alexander-b%C3%B6hle-9a1b93212/"
+              target="_blank"
+              rel="noopener"
+              class="host-link">LinkedIn</a>
           </div>
         </div>
       </article>

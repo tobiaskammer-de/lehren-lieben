@@ -1,11 +1,13 @@
 ---
+import { Picture } from 'astro:assets';
 import { asset } from '~/lib/url';
+import heroImage from '~/assets/hero.png';
 ---
 
 <section id="hero">
   <div class="hero-left">
     <div class="hero-eyebrow reveal">
-      <span class="eyebrow amber">Herzlich willkommen bei</span>
+      <span class="eyebrow amber">Zwei Stimmen · Eine Mission</span>
     </div>
     <div class="hero-title-row reveal reveal-d1">
       <div class="hero-logo-mark" aria-hidden="true">
@@ -26,20 +28,33 @@ import { asset } from '~/lib/url';
     </div>
     <div class="hero-platforms reveal reveal-d3">
       <a
-        href="https://lehrkraftbesterjobderwelt.podigee.io"
+        href="https://open.spotify.com/show/0RBds43hBl2kGuf4LDn0pO"
         target="_blank"
         rel="noopener"
         class="plat">Spotify</a>
-      <a href="#" class="plat">Apple Podcasts</a>
-      <a href="#" class="plat">YouTube</a>
+      <a
+        href="https://podcasts.apple.com/de/podcast/lehrkraft-bester-job-der-welt/id1837156033"
+        target="_blank"
+        rel="noopener"
+        class="plat">Apple Podcasts</a>
+      <a
+        href="https://www.instagram.com/lehrenlieben.punkt/"
+        target="_blank"
+        rel="noopener"
+        class="plat">Instagram</a>
     </div>
   </div>
   <div class="hero-right">
-    <img
-      src={asset('uploads/Kein Titel (50 x 30 cm)-2.png')}
+    <Picture
+      src={heroImage}
+      formats={['avif', 'webp']}
+      widths={[640, 960, 1280, 1600]}
+      sizes="(max-width: 960px) 100vw, 50vw"
       alt="Tobias und Alexander"
       class="hero-photo"
       id="hero-img"
+      loading="eager"
+      fetchpriority="high"
     />
     <div class="hero-photo-overlay"></div>
   </div>

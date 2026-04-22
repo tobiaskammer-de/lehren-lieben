@@ -1,6 +1,8 @@
 ---
 import { asset } from '~/lib/url';
 const year = new Date().getFullYear();
+const impressum = asset('impressum');
+const datenschutz = asset('datenschutz');
 ---
 
 <footer>
@@ -13,15 +15,17 @@ const year = new Date().getFullYear();
             alt=""
             style="height: 40px; width: auto;"
           />
-          Lehren <em>Lieben.</em>
+          LEHREN <em>LIEBEN.</em>
         </div>
         <p class="footer-tagline">
           Podcasts für Lehrkräfte,<br />die herausragend gut sein wollen.
         </p>
         <div class="footer-social">
-          <a href="#" class="f-soc">Instagram</a>
-          <a href="#" class="f-soc">YouTube</a>
-          <a href="#" class="f-soc">LinkedIn</a>
+          <a
+            href="https://www.instagram.com/lehrenlieben.punkt/"
+            target="_blank"
+            rel="noopener"
+            class="f-soc">Instagram</a>
         </div>
       </div>
       <div>
@@ -37,7 +41,6 @@ const year = new Date().getFullYear();
             target="_blank"
             rel="noopener"
             class="f-link">Ausgezeichnete Lehrkräfte</a>
-          <a href="#" class="f-link">Alle Episoden</a>
         </div>
       </div>
       <div>
@@ -51,17 +54,13 @@ const year = new Date().getFullYear();
       <div>
         <div class="f-col-title">Rechtliches</div>
         <div class="f-links">
-          <a href="#" class="f-link">Impressum</a>
-          <a href="#" class="f-link">Datenschutz</a>
+          <a href={impressum} class="f-link">Impressum</a>
+          <a href={datenschutz} class="f-link">Datenschutz</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="f-copy">© {year} Lehren Lieben. Alle Rechte vorbehalten.</div>
-      <div class="f-legal">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
-      </div>
     </div>
   </div>
 </footer>

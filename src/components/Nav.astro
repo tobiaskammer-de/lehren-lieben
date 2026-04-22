@@ -1,29 +1,84 @@
 ---
 import { asset } from '~/lib/url';
+const home = asset('');
 ---
 
 <nav id="main-nav" class="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href={home} class="nav-logo">
       <img
         src={asset('uploads/Transparent Logo.png')}
         alt=""
         style="height: 36px; width: auto;"
       />
-      Lehren <em>Lieben.</em>
+      LEHREN <em>LIEBEN.</em>
     </a>
-    <div class="nav-links">
-      <a href="#podcasts">Podcasts</a>
-      <a href="#mentor">KI-Mentor</a>
-      <a href="#team">Team</a>
-      <a href="#community">Community</a>
-    </div>
-    <a
-      href="#community"
-      class="btn btn-amber"
-      style="font-size: 13px; padding: 10px 22px;"
+
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-label="Menü öffnen"
+      aria-expanded="false"
+      aria-controls="nav-menu"
     >
-      Newsletter
-    </a>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-menu" id="nav-menu">
+      <div class="nav-links">
+        <a href={`${home}#podcasts`}>Podcasts</a>
+        <a href={`${home}#mentor`}>KI-Mentor</a>
+        <a href={`${home}#team`}>Team</a>
+        <a href={`${home}#community`}>Community</a>
+      </div>
+
+      <div class="nav-legal-group">
+        <a href={asset('impressum')} class="nav-legal">Impressum</a>
+        <a href={asset('datenschutz')} class="nav-legal">Datenschutz</a>
+      </div>
+
+      <a
+        href={`${home}#community`}
+        class="btn btn-amber nav-cta"
+      >
+        Newsletter
+      </a>
+    </div>
   </div>
+
+  <div class="nav-backdrop" aria-hidden="true"></div>
 </nav>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  const toggle = nav?.querySelector<HTMLButtonElement>('.nav-toggle');
+  const backdrop = nav?.querySelector<HTMLElement>('.nav-backdrop');
+  const menuLinks = nav?.querySelectorAll<HTMLAnchorElement>('.nav-menu a');
+
+  function setOpen(open: boolean) {
+    if (!nav || !toggle) return;
+    nav.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(!nav?.classList.contains('open'));
+  });
+
+  backdrop?.addEventListener('click', () => setOpen(false));
+  menuLinks?.forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav?.classList.contains('open')) setOpen(false);
+  });
+
+  // Close drawer when viewport grows past the mobile breakpoint
+  const mql = window.matchMedia('(min-width: 961px)');
+  mql.addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+</script>
