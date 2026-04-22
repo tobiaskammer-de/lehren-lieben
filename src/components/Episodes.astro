@@ -1,0 +1,123 @@
+---
+import { episodes } from '~/data/episodes';
+
+const latest = [
+  {
+    cls: 'amber',
+    show: 'Bester Job der Welt',
+    ep: '#17',
+    title:
+      'Ferien-Talk: Rebellentreff, Rückenwind und die erste Maxime guter Lehrkraftarbeit',
+    desc:
+      'Schokohasen verputzt, Ferienakkus auf grün, Schultaschen stehen bereit. Alex und Tobi nehmen euch hinter die Kulissen — und verraten die allererste der 10 Maximen guter Lehrkraftarbeit.',
+    dur: '42 min',
+    url: 'https://lehrkraftbesterjobderwelt.podigee.io/18-17-ferientalk',
+  },
+  {
+    cls: 'teal',
+    show: 'Ausgezeichnete Lehrkräfte',
+    ep: 'Neu',
+    title:
+      'Monika Ried-Broschwitz — Preisträgerin des Deutschen Lehrkräftepreises 2024',
+    desc:
+      'Erstmals gemeinsam am Mikrofon: Tobi und Alex sprechen mit Monika Ried-Broschwitz über Haltung, Vorbilder und das, was Schüler:innen wirklich brauchen, um aufzublühen.',
+    dur: '58 min',
+    url: 'https://deutschlandsausgezeichnetelaehrkraefte.podigee.io',
+  },
+];
+---
+
+<section id="episoden">
+  <div class="container-page">
+    <div
+      class="s-header"
+      style="display: flex; align-items: flex-end; justify-content: space-between;"
+    >
+      <div class="reveal">
+        <span class="eyebrow">Reinhören</span>
+        <h2 class="s-title">Frisch raus.</h2>
+      </div>
+      <a
+        href="#"
+        class="btn btn-outline reveal"
+        style="margin-bottom: 6px;"
+      >
+        Alle Episoden
+      </a>
+    </div>
+    <div class="ep-grid">
+      {
+        latest.map((e, i) => (
+          <article class={`ep-card reveal${i === 1 ? ' reveal-d1' : ''}`}>
+            <div class={`ep-top-bar ${e.cls}`}></div>
+            <div class="ep-show-row">
+              <span class={`ep-show ${e.cls}`}>{e.show}</span>
+              <span class="ep-num">{e.ep}</span>
+            </div>
+            <h3 class="ep-title">{e.title}</h3>
+            <p class="ep-desc">{e.desc}</p>
+            <div class="ep-footer">
+              <span class="ep-duration">{e.dur}</span>
+              <a
+                href={e.url}
+                target="_blank"
+                rel="noopener"
+                class={`ep-btn ${e.cls}`}
+              >
+                Hören
+              </a>
+              <a
+                href={e.url}
+                target="_blank"
+                rel="noopener"
+                class="ep-btn"
+                style="border-color: rgba(42,32,24,.2); color: var(--color-muted);"
+              >
+                Shownotes
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="random-bar reveal">
+      <div>
+        <div class="random-title">Nicht sicher, wo anfangen?</div>
+        <div class="random-sub">
+          Lass uns eine zufällige Episode für dich aussuchen.
+        </div>
+      </div>
+      <button class="btn btn-amber" id="random-btn">
+        Lass den Zufall entscheiden
+      </button>
+    </div>
+    <div id="random-result" style="display: none;"></div>
+  </div>
+</section>
+
+<script define:vars={{ episodes }}>
+  const btn = document.getElementById('random-btn');
+  const out = document.getElementById('random-result');
+  btn?.addEventListener('click', () => {
+    const ep = episodes[Math.floor(Math.random() * episodes.length)];
+    const rgb = ep.cls === 'amber' ? '232,149,58' : '37,179,151';
+    out.style.display = 'block';
+    out.innerHTML = `
+      <article class="ep-card" style="border: 2px solid rgba(${rgb}, .25);">
+        <div class="ep-top-bar ${ep.cls}"></div>
+        <div class="ep-show-row">
+          <span class="ep-show ${ep.cls}">${ep.show}</span>
+          <span class="ep-num">${ep.ep}</span>
+        </div>
+        <h3 class="ep-title">${ep.title}</h3>
+        <p class="ep-desc">${ep.desc}</p>
+        <div class="ep-footer">
+          <span class="ep-duration">${ep.dur}</span>
+          <a href="${ep.url}" target="_blank" rel="noopener" class="ep-btn ${ep.cls}">
+            Jetzt hören
+          </a>
+        </div>
+      </article>`;
+  });
+</script>

@@ -1,0 +1,63 @@
+---
+---
+
+<section id="community">
+  <div class="container-page">
+    <div class="community-wrap reveal">
+      <div class="community-glow"></div>
+      <span class="eyebrow">Sei dabei</span>
+      <h2 class="comm-headline">
+        Trag dich ein.<br /><em>Bleib dran.</em>
+      </h2>
+      <p class="comm-sub">
+        Neue Folgen, exklusive Lehrtipps und der erste Zugang zur wachsenden
+        Lehren-Lieben-Community — direkt in dein Postfach. spamfrei-Garantie :)
+      </p>
+      <form class="email-form" id="newsletter-form">
+        <input
+          type="email"
+          class="email-inp"
+          placeholder="deine@email.de"
+          required
+          aria-label="E-Mail-Adresse"
+        />
+        <button type="submit" class="btn btn-amber">Eintragen</button>
+      </form>
+      <p class="fine-print">Kein Spam. Jederzeit abmeldbar. Wirklich.</p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-title">Neue Episoden</div>
+          <p class="perk-desc">
+            Du erfährst als Erste, wenn eine neue Episode live geht — mit
+            Kurzfassung und Shownotes.
+          </p>
+        </div>
+        <div class="perk">
+          <div class="perk-title">Exklusiv-Tipps</div>
+          <p class="perk-desc">
+            Ressourcen und Methoden, die es nicht in den Podcast schaffen — nur
+            für den Verteiler.
+          </p>
+        </div>
+        <div class="perk soon">
+          <div class="perk-soon">Demnächst</div>
+          <div class="perk-title">Community-Raum</div>
+          <p class="perk-desc">
+            Ein Ort für Lehrkräfte, die es ernst meinen. Im Aufbau.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button') as HTMLButtonElement | null;
+    if (!btn) return;
+    btn.textContent = 'Eingetragen!';
+    btn.style.background = 'var(--color-teal)';
+  });
+</script>

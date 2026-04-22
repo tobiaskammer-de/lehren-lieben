@@ -1,0 +1,99 @@
+---
+---
+
+<section id="gastbewerbung">
+  <div class="container-page">
+    <div class="gast-layout">
+      <div class="reveal">
+        <span class="eyebrow amber">Werde Gast</span>
+        <h2 class="s-title" style="margin-top: 12px;">
+          Du hast eine Geschichte zu erzählen?
+        </h2>
+        <p class="s-sub">
+          Wenn du etwas zu sagen hast, das Lehrkräfte wirklich bewegt — meld
+          dich. Wir hören zu.
+        </p>
+        <div
+          style="margin-top: 40px; background: #fff; border-radius: 16px; padding: 28px; box-shadow: var(--shadow-sm);"
+        >
+          <p
+            style="font-size: 14px; font-weight: 300; color: var(--color-ink2); line-height: 1.75;"
+          >
+            Wir suchen Lehrkräfte, Schulleitungen und Bildungsgestalter, die
+            ihre Erfahrungen authentisch und auf Augenhöhe teilen wollen.
+          </p>
+        </div>
+      </div>
+      <form class="gast-form reveal reveal-d1" id="gast-form">
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="gast-name">Name *</label>
+            <input
+              id="gast-name"
+              type="text"
+              class="field-inp"
+              placeholder="Dein Name"
+              required
+            />
+          </div>
+          <div class="field">
+            <label class="field-label" for="gast-email">E-Mail *</label>
+            <input
+              id="gast-email"
+              type="email"
+              class="field-inp"
+              placeholder="deine@email.de"
+              required
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="gast-podcast">Für welchen Podcast? *</label>
+          <select id="gast-podcast" class="field-sel" required>
+            <option value="" disabled selected>Bitte wählen...</option>
+            <option>Bester Job der Welt?!</option>
+            <option>Deutschlands ausgezeichnete Lehrkräfte</option>
+            <option>Beide / bin offen</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="gast-topic">Dein Thema / Deine Geschichte *</label>
+          <textarea
+            id="gast-topic"
+            class="field-ta"
+            placeholder="Was möchtest du erzählen?"
+            required></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="gast-link">Website / LinkedIn</label>
+          <input
+            id="gast-link"
+            type="url"
+            class="field-inp"
+            placeholder="https://"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-amber"
+          style="align-self: flex-start;"
+        >
+          Bewerbung absenden
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('gast-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector(
+      '[type="submit"]',
+    ) as HTMLButtonElement | null;
+    if (!btn) return;
+    btn.textContent = 'Gesendet!';
+    btn.style.background = 'var(--color-teal)';
+  });
+</script>
