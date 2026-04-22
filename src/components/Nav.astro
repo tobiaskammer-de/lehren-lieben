@@ -1,5 +1,6 @@
 ---
 import { asset } from '~/lib/url';
+import { NEWSLETTER_URL } from '~/lib/links';
 const home = asset('');
 ---
 
@@ -40,7 +41,9 @@ const home = asset('');
       </div>
 
       <a
-        href={`${home}#community`}
+        href={NEWSLETTER_URL}
+        target="_blank"
+        rel="noopener"
         class="btn btn-amber nav-cta"
       >
         Newsletter
