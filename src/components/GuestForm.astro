@@ -24,12 +24,46 @@
           </p>
         </div>
       </div>
-      <form class="gast-form reveal reveal-d1" id="gast-form">
+      <form
+        class="gast-form reveal reveal-d1"
+        id="gast-form"
+        action="https://formsubmit.co/hallo@tobiaskammer.de"
+        method="POST"
+      >
+        <!-- Formsubmit config -->
+        <input
+          type="hidden"
+          name="_cc"
+          value="alexboehle@gmx.de"
+        />
+        <input
+          type="hidden"
+          name="_subject"
+          value="Neue Gastbewerbung — Lehren Lieben."
+        />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input
+          type="hidden"
+          name="_autoresponse"
+          value="Danke für deine Bewerbung! Wir melden uns so bald wie möglich bei dir. — Tobi & Alex"
+        />
+        <!-- Honeypot (bots fill this in, humans don't see it) -->
+        <input
+          type="text"
+          name="_honey"
+          tabindex="-1"
+          autocomplete="off"
+          style="position: absolute; left: -9999px;"
+          aria-hidden="true"
+        />
+
         <div class="field-row">
           <div class="field">
             <label class="field-label" for="gast-name">Name *</label>
             <input
               id="gast-name"
+              name="name"
               type="text"
               class="field-inp"
               placeholder="Dein Name"
@@ -40,6 +74,7 @@
             <label class="field-label" for="gast-email">E-Mail *</label>
             <input
               id="gast-email"
+              name="email"
               type="email"
               class="field-inp"
               placeholder="deine@email.de"
@@ -49,7 +84,7 @@
         </div>
         <div class="field">
           <label class="field-label" for="gast-podcast">Für welchen Podcast? *</label>
-          <select id="gast-podcast" class="field-sel" required>
+          <select id="gast-podcast" name="podcast" class="field-sel" required>
             <option value="" disabled selected>Bitte wählen...</option>
             <option>Bester Job der Welt?!</option>
             <option>Deutschlands ausgezeichnete Lehrkräfte</option>
@@ -60,6 +95,7 @@
           <label class="field-label" for="gast-topic">Dein Thema / Deine Geschichte *</label>
           <textarea
             id="gast-topic"
+            name="message"
             class="field-ta"
             placeholder="Was möchtest du erzählen?"
             required></textarea>
@@ -68,6 +104,7 @@
           <label class="field-label" for="gast-link">Website / LinkedIn</label>
           <input
             id="gast-link"
+            name="website"
             type="url"
             class="field-inp"
             placeholder="https://"
@@ -85,15 +122,3 @@
   </div>
 </section>
 
-<script>
-  const form = document.getElementById('gast-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = form.querySelector(
-      '[type="submit"]',
-    ) as HTMLButtonElement | null;
-    if (!btn) return;
-    btn.textContent = 'Gesendet!';
-    btn.style.background = 'var(--color-teal)';
-  });
-</script>
