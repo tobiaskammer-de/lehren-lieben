@@ -1164,10 +1164,18 @@ footer {
 .page-article h2 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1.3;
   color: var(--color-ink);
-  margin: 48px 0 14px;
+  margin: 56px 0 16px;
+}
+.page-article h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--color-ink);
+  margin: 28px 0 10px;
 }
 .page-article p,
 .page-article li {
@@ -1204,6 +1212,15 @@ footer {
   font-weight: 500;
   color: var(--color-ink2);
   line-height: 1.6;
+}
+.page-generator-note {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(42, 32, 24, 0.08);
+  font-size: 13px !important;
+  color: var(--color-muted) !important;
+  font-style: italic;
+  line-height: 1.6 !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
