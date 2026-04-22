@@ -165,7 +165,7 @@ export default function LehrkraftmentorChat() {
             style={{ fontSize: 13, padding: '11px 20px' }}
             disabled={sending || !input.trim()}
           >
-            {sending ? '…' : 'Senden'}
+            {sending ? '…' : "Los geht's"}
           </button>
         </form>
 
