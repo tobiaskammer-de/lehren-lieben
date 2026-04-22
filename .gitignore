@@ -25,3 +25,6 @@ pnpm-debug.log*
 !.vscode/extensions.json
 !.vscode/launch.json
 .idea/
+
+# agent internal state
+.claude/
