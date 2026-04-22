@@ -1,4 +1,12 @@
 ---
+import { latestFor } from '~/data/episodes';
+
+const latestAmber = latestFor('amber');
+const latestTeal = latestFor('teal');
+const amberHref =
+  latestAmber?.url ?? 'https://lehrkraftbesterjobderwelt.podigee.io';
+const tealHref =
+  latestTeal?.url ?? 'https://deutschlandsausgezeichnetelaehrkraefte.podigee.io';
 ---
 
 <section id="podcasts">
@@ -44,7 +52,7 @@
             class="pc-plat amber">Apple</a>
         </div>
         <a
-          href="https://lehrkraftbesterjobderwelt.podigee.io"
+          href={amberHref}
           target="_blank"
           rel="noopener"
           class="btn btn-amber"
@@ -86,7 +94,7 @@
             class="pc-plat teal">Apple</a>
         </div>
         <a
-          href="https://deutschlandsausgezeichnetelaehrkraefte.podigee.io"
+          href={tealHref}
           target="_blank"
           rel="noopener"
           class="btn btn-teal"

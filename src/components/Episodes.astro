@@ -1,30 +1,19 @@
 ---
-import { episodes } from '~/data/episodes';
+import { episodes, latestTwo } from '~/data/episodes';
 
-const latest = [
-  {
-    cls: 'amber',
-    show: 'Bester Job der Welt',
-    ep: '#17',
-    title:
-      'Ferien-Talk: Rebellentreff, Rückenwind und die erste Maxime guter Lehrkraftarbeit',
-    desc:
-      'Schokohasen verputzt, Ferienakkus auf grün, Schultaschen stehen bereit. Alex und Tobi nehmen euch hinter die Kulissen — und verraten die allererste der 10 Maximen guter Lehrkraftarbeit.',
-    dur: '42 min',
-    url: 'https://lehrkraftbesterjobderwelt.podigee.io/18-17-ferientalk',
-  },
-  {
-    cls: 'teal',
-    show: 'Ausgezeichnete Lehrkräfte',
-    ep: 'Neu',
-    title:
-      'Monika Ried-Broschwitz — Preisträgerin des Deutschen Lehrkräftepreises 2024',
-    desc:
-      'Erstmals gemeinsam am Mikrofon: Tobi und Alex sprechen mit Monika Ried-Broschwitz über Haltung, Vorbilder und das, was Schüler:innen wirklich brauchen, um aufzublühen.',
-    dur: '58 min',
-    url: 'https://deutschlandsausgezeichnetelaehrkraefte.podigee.io',
-  },
-];
+const latest = latestTwo();
+
+// Payload for the random picker script — only the fields the client needs,
+// and as JSON-safe objects (no Date instances).
+const randomPool = episodes.map((e) => ({
+  show: e.show,
+  cls: e.cls,
+  ep: e.ep,
+  title: e.title,
+  desc: e.desc,
+  dur: e.dur,
+  url: e.url,
+}));
 ---
 
 <section id="episoden">
@@ -38,7 +27,9 @@ const latest = [
         <h2 class="s-title">Frisch raus.</h2>
       </div>
       <a
-        href="#"
+        href="https://lehrkraftbesterjobderwelt.podigee.io"
+        target="_blank"
+        rel="noopener"
         class="btn btn-outline reveal"
         style="margin-bottom: 6px;"
       >
@@ -52,12 +43,12 @@ const latest = [
             <div class={`ep-top-bar ${e.cls}`}></div>
             <div class="ep-show-row">
               <span class={`ep-show ${e.cls}`}>{e.show}</span>
-              <span class="ep-num">{e.ep}</span>
+              {e.ep && <span class="ep-num">{e.ep}</span>}
             </div>
             <h3 class="ep-title">{e.title}</h3>
             <p class="ep-desc">{e.desc}</p>
             <div class="ep-footer">
-              <span class="ep-duration">{e.dur}</span>
+              {e.dur && <span class="ep-duration">{e.dur}</span>}
               <a
                 href={e.url}
                 target="_blank"
@@ -96,28 +87,40 @@ const latest = [
   </div>
 </section>
 
-<script define:vars={{ episodes }}>
+<script define:vars={{ episodes: randomPool }}>
   const btn = document.getElementById('random-btn');
   const out = document.getElementById('random-result');
-  btn?.addEventListener('click', () => {
-    const ep = episodes[Math.floor(Math.random() * episodes.length)];
+
+  function render(ep) {
     const rgb = ep.cls === 'amber' ? '232,149,58' : '37,179,151';
-    out.style.display = 'block';
-    out.innerHTML = `
+    return `
       <article class="ep-card" style="border: 2px solid rgba(${rgb}, .25);">
         <div class="ep-top-bar ${ep.cls}"></div>
         <div class="ep-show-row">
           <span class="ep-show ${ep.cls}">${ep.show}</span>
-          <span class="ep-num">${ep.ep}</span>
+          ${ep.ep ? `<span class="ep-num">${ep.ep}</span>` : ''}
         </div>
         <h3 class="ep-title">${ep.title}</h3>
         <p class="ep-desc">${ep.desc}</p>
         <div class="ep-footer">
-          <span class="ep-duration">${ep.dur}</span>
+          ${ep.dur ? `<span class="ep-duration">${ep.dur}</span>` : ''}
           <a href="${ep.url}" target="_blank" rel="noopener" class="ep-btn ${ep.cls}">
             Jetzt hören
           </a>
         </div>
       </article>`;
+  }
+
+  let lastIndex = -1;
+  btn?.addEventListener('click', () => {
+    if (!episodes || episodes.length === 0) return;
+    let i = Math.floor(Math.random() * episodes.length);
+    // Avoid picking the same one twice in a row
+    if (episodes.length > 1 && i === lastIndex) {
+      i = (i + 1) % episodes.length;
+    }
+    lastIndex = i;
+    out.style.display = 'block';
+    out.innerHTML = render(episodes[i]);
   });
 </script>

@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Rebuild daily at 06:00 UTC (07:00/08:00 Berlin depending on DST).
+    # Picks up new Podigee RSS episodes without manual intervention.
+    - cron: '0 6 * * *'
 
 permissions:
   contents: read
