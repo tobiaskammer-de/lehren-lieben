@@ -1,0 +1,126 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Nav from '~/components/Nav.astro';
+import Footer from '~/components/Footer.astro';
+import { episodes } from '~/data/episodes';
+
+const amberCount = episodes.filter((e) => e.cls === 'amber').length;
+const tealCount = episodes.filter((e) => e.cls === 'teal').length;
+const totalCount = episodes.length;
+
+const dateFmt = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<Layout
+  title="Alle Folgen — Lehren Lieben."
+  description="Das komplette Archiv aus beiden Podcasts — Bester Job der Welt und Deutschlands ausgezeichnete Lehrkräfte."
+>
+  <Nav />
+
+  <main class="episodes-page">
+    <div class="container-page">
+      <header class="ep-page-header">
+        <span class="eyebrow">Das komplette Archiv</span>
+        <h1>Alle Folgen</h1>
+        <p class="ep-page-sub">
+          Beide Shows, {totalCount} Folgen, chronologisch. Klick führt direkt
+          zur Podigee-Seite mit Shownotes und Player.
+        </p>
+      </header>
+
+      <div class="ep-filters" role="tablist" aria-label="Podcast-Filter">
+        <button
+          type="button"
+          class="ep-filter active"
+          data-filter="all"
+          role="tab"
+          aria-selected="true"
+        >
+          Alle <span class="ep-filter-count">{totalCount}</span>
+        </button>
+        <button
+          type="button"
+          class="ep-filter"
+          data-filter="amber"
+          role="tab"
+          aria-selected="false"
+        >
+          Bester Job der Welt <span class="ep-filter-count">{amberCount}</span>
+        </button>
+        <button
+          type="button"
+          class="ep-filter"
+          data-filter="teal"
+          role="tab"
+          aria-selected="false"
+        >
+          Ausgezeichnete Lehrkräfte <span class="ep-filter-count">{tealCount}</span>
+        </button>
+      </div>
+
+      <div class="ep-gallery" id="ep-gallery">
+        {
+          episodes.map((e) => (
+            <a
+              href={e.url}
+              target="_blank"
+              rel="noopener"
+              class={`ep-tile ${e.cls}`}
+              data-cls={e.cls}
+            >
+              <div class={`ep-top-bar ${e.cls}`} />
+              <div class="ep-tile-meta">
+                <span class={`ep-show ${e.cls}`}>{e.show}</span>
+                {e.ep && <span class="ep-num">{e.ep}</span>}
+              </div>
+              <h2 class="ep-title">{e.title}</h2>
+              <p class="ep-desc">{e.desc}</p>
+              <div class="ep-tile-footer">
+                {e.dur && <span class="ep-duration">{e.dur}</span>}
+                <span class="ep-date">{dateFmt.format(e.pubDate)}</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="ep-empty" id="ep-empty" style="display: none;">
+        Keine Folgen in dieser Auswahl.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.ep-filter');
+  const tiles = document.querySelectorAll<HTMLElement>('.ep-tile');
+  const empty = document.getElementById('ep-empty') as HTMLElement | null;
+
+  function apply(filter: string) {
+    let visible = 0;
+    tiles.forEach((t) => {
+      const show = filter === 'all' || t.dataset.cls === filter;
+      t.hidden = !show;
+      if (show) visible++;
+    });
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+      buttons.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      apply(filter);
+    });
+  });
+</script>

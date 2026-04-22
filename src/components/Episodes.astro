@@ -1,7 +1,9 @@
 ---
 import { episodes, latestTwo } from '~/data/episodes';
+import { asset } from '~/lib/url';
 
 const latest = latestTwo();
+const allEpisodesHref = asset('episoden/');
 
 // Payload for the random picker script — only the fields the client needs,
 // and as JSON-safe objects (no Date instances).
@@ -27,13 +29,11 @@ const randomPool = episodes.map((e) => ({
         <h2 class="s-title">Frisch raus.</h2>
       </div>
       <a
-        href="https://lehrkraftbesterjobderwelt.podigee.io"
-        target="_blank"
-        rel="noopener"
+        href={allEpisodesHref}
         class="btn btn-outline reveal"
         style="margin-bottom: 6px;"
       >
-        Alle Episoden
+        Alle Folgen
       </a>
     </div>
     <div class="ep-grid">

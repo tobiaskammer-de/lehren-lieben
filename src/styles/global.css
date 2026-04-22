@@ -1207,6 +1207,187 @@ footer {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   Episodes archive page (/episoden)
+   ────────────────────────────────────────────────────────────── */
+.episodes-page {
+  padding: 148px 0 96px;
+  min-height: 100vh;
+  background: var(--color-cream);
+}
+.ep-page-header {
+  margin-bottom: 48px;
+  max-width: 720px;
+}
+.ep-page-header h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(40px, 5vw, 68px);
+  letter-spacing: -0.8px;
+  line-height: 1.05;
+  margin: 14px 0 18px;
+  color: var(--color-ink);
+}
+.ep-page-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--color-ink2);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.ep-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 44px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(42, 32, 24, 0.08);
+}
+.ep-filter {
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1.5px solid rgba(42, 32, 24, 0.15);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink2);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.ep-filter:hover { border-color: var(--color-ink2); }
+.ep-filter.active {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-cream);
+}
+.ep-filter-count {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: rgba(42, 32, 24, 0.08);
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+.ep-filter.active .ep-filter-count {
+  background: rgba(253, 248, 242, 0.18);
+  color: var(--color-cream);
+}
+
+.ep-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.ep-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-cream2);
+  border-radius: var(--r);
+  padding: 32px 28px 24px;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.ep-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.ep-tile .ep-top-bar {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  right: 28px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+}
+.ep-tile[hidden] { display: none; }
+.ep-tile-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ep-tile-meta .ep-num {
+  font-size: 12px;
+  color: var(--color-muted2);
+  margin-left: auto;
+}
+.ep-tile .ep-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+}
+.ep-tile .ep-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-ink2);
+  line-height: 1.65;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.ep-tile-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(42, 32, 24, 0.07);
+  font-size: 13px;
+  color: var(--color-muted2);
+}
+.ep-date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.ep-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--color-muted);
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .ep-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 16px;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ep-filters::-webkit-scrollbar { display: none; }
+  .ep-filter { flex-shrink: 0; }
+  .episodes-page { padding-top: 120px; }
+  .ep-tile { padding: 28px 24px 22px; }
+  .ep-tile .ep-top-bar { left: 24px; right: 24px; }
+}
+
+/* ──────────────────────────────────────────────────────────────
    Responsive
    ────────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
