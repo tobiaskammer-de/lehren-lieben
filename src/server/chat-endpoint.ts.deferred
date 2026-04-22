@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 // This endpoint runs as a Vercel serverless function.
 export const prerender = false;
 
-const SYSTEM_PROMPT = `Du bist der "Lehrkräftementor" von Lehren Lieben. — einer Podcast-
+const SYSTEM_PROMPT = `Du bist der "Lehrkraftmentor" von Lehren Lieben. — einer Podcast-
 Plattform für Lehrkräfte von Tobias Kammer und Alexander Böhle.
 
 Ton: warm, persönlich, professionell, nahbar, mit trockenem Humor.

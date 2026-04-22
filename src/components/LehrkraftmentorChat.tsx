@@ -83,7 +83,7 @@ export default function LehrkraftmentorChat() {
       <div className="reveal">
         <span className="eyebrow amber">KI-gestütztes Tool</span>
         <h2 className="s-title" style={{ marginTop: 12 }}>
-          Der<br />Lehrkräftementor
+          Der<br />Lehrkraftmentor
         </h2>
         <p className="s-sub">
           Auf Basis der Transkripte aller Podcastfolgen ist ein KI-Mentor
@@ -109,7 +109,7 @@ export default function LehrkraftmentorChat() {
         <div className="mentor-hd">
           <div className="mentor-icon">L</div>
           <div>
-            <div className="mentor-name">Lehrkräftementor</div>
+            <div className="mentor-name">Lehrkraftmentor</div>
             <div className="mentor-tagline">
               Powered by ChatGPT · basiert auf echten Podcastgesprächen
             </div>
@@ -157,7 +157,7 @@ export default function LehrkraftmentorChat() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Frag mich etwas..."
             disabled={sending}
-            aria-label="Deine Frage an den Lehrkräftementor"
+            aria-label="Deine Frage an den Lehrkraftmentor"
           />
           <button
             type="submit"
