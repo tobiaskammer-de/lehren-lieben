@@ -1,4 +1,5 @@
 ---
+import { asset } from '~/lib/url';
 ---
 
 <section id="hero">
@@ -8,7 +9,7 @@
     </div>
     <div class="hero-title-row reveal reveal-d1">
       <div class="hero-logo-mark" aria-hidden="true">
-        <img src="/uploads/Transparent Logo.png" alt="" />
+        <img src={asset('uploads/Transparent Logo.png')} alt="" />
       </div>
       <h1 class="hero-display">
         LEHREN<br /><em>LIEBEN.</em>
@@ -35,7 +36,7 @@
   </div>
   <div class="hero-right">
     <img
-      src="/uploads/Kein Titel (50 x 30 cm)-2.png"
+      src={asset('uploads/Kein Titel (50 x 30 cm)-2.png')}
       alt="Tobias und Alexander"
       class="hero-photo"
       id="hero-img"

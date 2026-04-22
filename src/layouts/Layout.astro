@@ -1,5 +1,6 @@
 ---
 import '~/styles/global.css';
+import { asset } from '~/lib/url';
 
 interface Props {
   title?: string;
@@ -19,7 +20,11 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/uploads/Transparent Logo.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href={asset('uploads/Transparent Logo.png')}
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

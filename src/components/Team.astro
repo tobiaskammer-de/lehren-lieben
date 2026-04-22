@@ -1,4 +1,5 @@
 ---
+import { asset } from '~/lib/url';
 ---
 
 <section id="team">
@@ -13,7 +14,7 @@
       <article class="host-card reveal">
         <div class="host-photo-wrap">
           <img
-            src="/uploads/Tobias.jpg"
+            src={asset('uploads/Tobias.jpg')}
             alt="Tobias Kammer"
             class="host-photo"
           />
@@ -49,7 +50,7 @@
       <article class="host-card reveal reveal-d1">
         <div class="host-photo-wrap">
           <img
-            src="/uploads/Alexander.jpg.avif"
+            src={asset('uploads/Alexander.jpg.avif')}
             alt="Alexander Böhle"
             class="host-photo"
             style="object-position: center 25%;"

@@ -38,7 +38,9 @@ export default function LehrkraftmentorChat() {
     setSending(true);
 
     try {
-      const res = await fetch('/api/chat', {
+      const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '/');
+      const endpoint = (base.endsWith('/') ? base : base + '/') + 'api/chat';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: next }),

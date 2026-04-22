@@ -1,4 +1,5 @@
 ---
+import { asset } from '~/lib/url';
 const year = new Date().getFullYear();
 ---
 
@@ -8,7 +9,7 @@ const year = new Date().getFullYear();
       <div>
         <div class="footer-brand">
           <img
-            src="/uploads/Transparent Logo.png"
+            src={asset('uploads/Transparent Logo.png')}
             alt=""
             style="height: 40px; width: auto;"
           />
