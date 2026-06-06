@@ -1,5 +1,8 @@
 ---
 import { NEWSLETTER_URL } from '~/lib/links';
+import { asset } from '~/lib/url';
+
+const datenschutz = asset('datenschutz');
 ---
 
 <section id="community">
@@ -18,20 +21,38 @@ import { NEWSLETTER_URL } from '~/lib/links';
         class="email-form"
         id="newsletter-form"
         action={NEWSLETTER_URL}
-        method="GET"
-        target="_blank"
-        rel="noopener"
+        method="POST"
+        target="ml_iframe"
       >
         <input
           type="email"
-          name="EMAIL"
+          name="fields[email]"
           class="email-inp"
           placeholder="deine@email.de"
           aria-label="E-Mail-Adresse"
+          required
         />
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
         <button type="submit" class="btn btn-amber">Eintragen</button>
       </form>
+      <p id="newsletter-success" class="form-success" hidden>
+        Fast geschafft! Wir haben dir eine E-Mail geschickt — bitte bestätige
+        darin deine Anmeldung.
+      </p>
       <p class="fine-print">Kein Spam. Jederzeit abmeldbar. Wirklich.</p>
+      <p class="form-consent">
+        Mit der Anmeldung stimmst du dem Erhalt des Newsletters zu. Mehr in der
+        <a href={datenschutz}>Datenschutzerklärung</a>. Abmeldung jederzeit
+        möglich.
+      </p>
+      <iframe
+        name="ml_iframe"
+        title=""
+        aria-hidden="true"
+        tabindex="-1"
+        style="position:absolute;width:0;height:0;border:0;"
+      ></iframe>
       <div class="perks">
         <div class="perk">
           <div class="perk-title">Neue Episoden</div>
@@ -58,4 +79,21 @@ import { NEWSLETTER_URL } from '~/lib/links';
     </div>
   </div>
 </section>
+
+<script>
+  // Anmeldung an MailerLite per verstecktem iframe abschicken → kein neuer Tab,
+  // Bestätigung erscheint inline. Echte Bestätigung ist die Double-Opt-In-Mail.
+  const form = document.getElementById('newsletter-form');
+  const success = document.getElementById('newsletter-success');
+  const frame = document.querySelector('iframe[name="ml_iframe"]');
+  let submitted = false;
+  form?.addEventListener('submit', () => {
+    submitted = true;
+  });
+  frame?.addEventListener('load', () => {
+    if (!submitted) return; // initiales Laden des iframes ignorieren
+    if (form) form.hidden = true;
+    if (success) success.hidden = false;
+  });
+</script>
 

@@ -3,6 +3,6 @@
  * Centralized so they can be updated in one spot.
  */
 
-/** Brevo/Sendinblue hosted newsletter signup form */
+/** MailerLite embedded-form subscribe endpoint (no API key needed; safe for static sites). */
 export const NEWSLETTER_URL =
-  'https://a11acbc0.sibforms.com/serve/MUIFAJDlDVQE_kchmoLxexQuctqqpYtx71UV0LbgdBKmTLu-v2gGL9tHWxiQPjKJVnJ1Txy-0zqBA7Lb4VGpbC-kGXRwkvELUODuZy_rcxfPCeDOmWCYn_vc1kFsgIfRsS7QwJ5dJ4FFCF_RBmc_-xnD2UaNTAauhz1EsvLJVkUwla5-uECm5AjaQZLEgPpOsaZvNhWFVcXqgChZzA==';
+  'https://assets.mailerlite.com/jsonp/2411473/forms/189504072235091443/subscribe';

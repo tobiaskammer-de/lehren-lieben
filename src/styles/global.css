@@ -946,6 +946,26 @@ section { padding: 110px 0; }
 }
 .email-inp::placeholder { color: var(--color-muted2); }
 .fine-print { font-size: 12px; color: var(--color-muted2); }
+.form-success {
+  max-width: 420px;
+  margin: 0 auto 12px;
+  padding: 14px 22px;
+  border-radius: var(--r);
+  background: var(--teal-soft);
+  color: var(--color-teal);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.form-consent {
+  max-width: 420px;
+  margin: 8px auto 0;
+  font-size: 12px;
+  color: var(--color-muted2);
+  line-height: 1.6;
+}
+.form-consent a { color: var(--color-muted); text-decoration: underline; }
+.form-consent a:hover { color: var(--color-ink2); }
 .perks {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
