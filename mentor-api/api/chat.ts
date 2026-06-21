@@ -1,9 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import Anthropic from '@anthropic-ai/sdk';
-import { SYSTEM_PROMPT } from '../prompt';
-import { embedQuery, topChunks, buildContext, type Chunk } from '../lib/rag';
-import { checkRateLimit, clientIp } from '../lib/ratelimit';
-import corpusData from '../corpus.json';
+// ESM-Pflicht auf Vercel: relative Importe mit .js-Endung, JSON mit Import-Attribut.
+import { SYSTEM_PROMPT } from '../prompt.js';
+import { embedQuery, topChunks, buildContext, type Chunk } from '../lib/rag.js';
+import { checkRateLimit, clientIp } from '../lib/ratelimit.js';
+import corpusData from '../corpus.json' with { type: 'json' };
 
 const MODEL = 'claude-sonnet-4-6';
 const DAILY_LIMIT = 20; // max. Anfragen pro IP und Tag (Missbrauchsschutz)
