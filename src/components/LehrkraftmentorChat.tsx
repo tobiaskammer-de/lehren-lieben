@@ -264,8 +264,8 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
           Der<br />Lehrkraftmentor
         </h2>
         <p className="mentor-lead">
-          „Stell die Frage, die du sonst nur einer erfahrenen Kollegin im
-          Lehrerzimmer stellen würdest — wenn du eine hättest, die Zeit hat."
+          „Stell die Fragen, die du <span className="mentor-lead-em">schon immer</span>{' '}
+          stellen wolltest."
         </p>
         <p className="s-sub">
           Auf Basis der Transkripte aller Podcastfolgen ist ein KI-Mentor entstanden. Die

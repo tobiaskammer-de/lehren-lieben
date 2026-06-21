@@ -614,13 +614,15 @@ section { padding: 110px 0; }
 /* Prominenter Aufhänger über der Beschreibung */
 .mentor-lead {
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: 21px;
   line-height: 1.5;
   color: var(--color-cream);
   margin: 20px 0 16px;
   padding-left: 18px;
   border-left: 3px solid var(--color-amber);
+}
+.mentor-lead-em {
+  color: var(--color-amber);
 }
 #mentor .eyebrow.amber {
   color: var(--color-amber);
