@@ -833,6 +833,32 @@ section { padding: 110px 0; }
   text-underline-offset: 2px;
   font-weight: 600;
 }
+/* Gerenderte Markdown-Antwort des Mentors (statt roher ** / # / - im Text) */
+.mentor-md {
+  white-space: normal;
+}
+.mentor-md > :first-child { margin-top: 0; }
+.mentor-md > :last-child { margin-bottom: 0; }
+.mentor-p { margin: 0 0 8px; }
+.mentor-h {
+  font-weight: 700;
+  margin: 12px 0 4px;
+  line-height: 1.35;
+}
+.mentor-ul,
+.mentor-ol {
+  margin: 4px 0 8px;
+  padding-left: 20px;
+}
+.mentor-ul li,
+.mentor-ol li { margin: 2px 0; }
+.mentor-hr {
+  border: none;
+  border-top: 1px solid rgba(42, 32, 24, 0.15);
+  margin: 10px 0;
+}
+.mentor-md strong { font-weight: 700; }
+.mentor-md em { font-style: italic; }
 /* Vollbild-Popup: Frame füllt das Fenster, Chat-Bereich wächst mit */
 .mentor-frame--full {
   border-radius: 0;

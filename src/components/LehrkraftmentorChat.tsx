@@ -20,13 +20,10 @@ const INITIAL_MESSAGES: Message[] = [
 const URL_RE = 'https?:\\/\\/[^\\s)»"]+';
 
 /**
- * Wandelt Verweise im Antworttext in klickbare Links um:
- *  - jede rohe URL (inkl. „?t="-Deeplink, der direkt zur zitierten Minute springt)
- *    wird ein kompakter „▶ Reinhören"-Link;
- *  - jeder Folgentitel und jedes "Folge #N", das zu einer echten Folge passt,
- *    wird zu einem Link auf die Podigee-Seite der Folge.
+ * Inline-Verlinkung: rohe URLs (inkl. „?t="-Deeplink zur Minute) und
+ * Folgentitel / „Folge #N" werden zu klickbaren Links.
  */
-function linkifyEpisodes(text: string, episodes: EpisodeLink[]): ReactNode {
+function linkifyInline(text: string, episodes: EpisodeLink[], keyBase: string): ReactNode[] {
   const urlByNeedle = new Map<string, string>();
   const needles: string[] = [];
   const add = (needle: string, url: string) => {
@@ -50,8 +47,7 @@ function linkifyEpisodes(text: string, episodes: EpisodeLink[]): ReactNode {
   // Längste Treffer zuerst, damit Titel nicht von Teilstücken überlagert werden.
   needles.sort((a, b) => b.length - a.length);
   const escaped = needles.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const alternatives = [URL_RE, ...escaped];
-  const re = new RegExp(`(${alternatives.join('|')})`, 'gi');
+  const re = new RegExp(`(${[URL_RE, ...escaped].join('|')})`, 'gi');
 
   return text.split(re).map((part, i) => {
     if (!part) return part;
@@ -60,20 +56,125 @@ function linkifyEpisodes(text: string, episodes: EpisodeLink[]): ReactNode {
       const href = part.replace(/[.,;:!?»")]+$/, '');
       const label = /[?&]t=/.test(href) ? '▶ an dieser Stelle anhören' : '▶ zur Folge';
       return (
-        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="mentor-link">
+        <a key={`${keyBase}-${i}`} href={href} target="_blank" rel="noopener noreferrer" className="mentor-link">
           {label}
         </a>
       );
     }
     const url = urlByNeedle.get(part.toLowerCase());
     return url ? (
-      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="mentor-link">
+      <a key={`${keyBase}-${i}`} href={url} target="_blank" rel="noopener noreferrer" className="mentor-link">
         {part}
       </a>
     ) : (
       part
     );
   });
+}
+
+/** Inline-Markdown (**fett**, *kursiv*, _kursiv_) plus Links. */
+function renderInline(text: string, episodes: EpisodeLink[], keyBase: string): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  const re = /\*\*([^*]+)\*\*|\*([^*\n]+)\*|_([^_\n]+)_/g;
+  let last = 0;
+  let i = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(...linkifyInline(text.slice(last, m.index), episodes, `${keyBase}-t${i}`));
+    if (m[1] !== undefined) {
+      nodes.push(<strong key={`${keyBase}-b${i}`}>{linkifyInline(m[1], episodes, `${keyBase}-b${i}`)}</strong>);
+    } else {
+      const content = (m[2] ?? m[3]) as string;
+      nodes.push(<em key={`${keyBase}-i${i}`}>{linkifyInline(content, episodes, `${keyBase}-i${i}`)}</em>);
+    }
+    last = m.index + m[0].length;
+    i++;
+  }
+  if (last < text.length) nodes.push(...linkifyInline(text.slice(last), episodes, `${keyBase}-t${i}`));
+  return nodes;
+}
+
+/**
+ * Rendert die Markdown-Antwort des Mentors (Absätze, Überschriften, Listen,
+ * Trennlinien, fett/kursiv) — damit keine rohen „**"/„#" mehr stehen bleiben.
+ */
+function renderMarkdown(text: string, episodes: EpisodeLink[]): ReactNode {
+  const lines = text.replace(/\r/g, '').split('\n');
+  const blocks: ReactNode[] = [];
+  let para: string[] = [];
+  let k = 0;
+  const flush = () => {
+    if (para.length) {
+      blocks.push(
+        <p key={`p${k++}`} className="mentor-p">
+          {renderInline(para.join(' '), episodes, `p${k}`)}
+        </p>,
+      );
+      para = [];
+    }
+  };
+
+  for (let i = 0; i < lines.length; ) {
+    const t = lines[i].trim();
+    if (!t) {
+      flush();
+      i++;
+      continue;
+    }
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(t)) {
+      flush();
+      blocks.push(<hr key={`hr${k++}`} className="mentor-hr" />);
+      i++;
+      continue;
+    }
+    const h = t.match(/^#{1,6}\s+(.*)$/);
+    if (h) {
+      flush();
+      blocks.push(
+        <div key={`h${k++}`} className="mentor-h">
+          {renderInline(h[1], episodes, `h${k}`)}
+        </div>,
+      );
+      i++;
+      continue;
+    }
+    if (/^[-*]\s+/.test(t)) {
+      flush();
+      const items: string[] = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+        items.push(lines[i].replace(/^\s*[-*]\s+/, ''));
+        i++;
+      }
+      blocks.push(
+        <ul key={`ul${k++}`} className="mentor-ul">
+          {items.map((it, j) => (
+            <li key={j}>{renderInline(it, episodes, `ul${k}-${j}`)}</li>
+          ))}
+        </ul>,
+      );
+      continue;
+    }
+    if (/^\d+\.\s+/.test(t)) {
+      flush();
+      const items: string[] = [];
+      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+        items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
+        i++;
+      }
+      blocks.push(
+        <ol key={`ol${k++}`} className="mentor-ol">
+          {items.map((it, j) => (
+            <li key={j}>{renderInline(it, episodes, `ol${k}-${j}`)}</li>
+          ))}
+        </ol>,
+      );
+      continue;
+    }
+    para.push(t);
+    i++;
+  }
+  flush();
+  return blocks;
 }
 
 export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] }: Props) {
@@ -209,7 +310,11 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
           key={i}
           className={`bubble ${m.role === 'user' ? 'bubble-user' : 'bubble-bot'}`}
         >
-          {m.role === 'user' ? m.content : linkifyEpisodes(m.content, episodes)}
+          {m.role === 'user' ? (
+            m.content
+          ) : (
+            <div className="mentor-md">{renderMarkdown(m.content, episodes)}</div>
+          )}
         </div>
       ))}
       {sending && (
