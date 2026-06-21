@@ -159,9 +159,7 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
       <img className="mentor-logo" src={asset('uploads/Transparent Logo.png')} alt="Lehren Lieben" />
       <div>
         <div className="mentor-name">Lehrkraftmentor</div>
-        <div className="mentor-tagline">
-          Powered by Claude · basiert auf echten Podcastgesprächen
-        </div>
+        <div className="mentor-tagline">ein Projekt von LehrenLieben</div>
       </div>
       {!fullscreen && (
         <button
@@ -204,10 +202,18 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
 
   const form = (
     <form className="chat-input-row" onSubmit={handleSubmit}>
-      <input
+      <textarea
         className="chat-input"
+        rows={2}
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          // Enter sendet, Shift+Enter macht eine neue Zeile.
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            send(input);
+          }
+        }}
         placeholder="Frag mich etwas..."
         disabled={sending}
         aria-label="Deine Frage an den Lehrkraftmentor"
@@ -220,6 +226,32 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
       >
         {sending ? '…' : "Los geht's"}
       </button>
+      {!fullscreen && (
+        <button
+          type="button"
+          className="mentor-fs-btn"
+          onClick={openFullscreen}
+          aria-label="Vollbild öffnen"
+          title="Vollbild öffnen"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+            <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+            <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+            <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+          </svg>
+        </button>
+      )}
     </form>
   );
 

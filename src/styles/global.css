@@ -706,7 +706,7 @@ section { padding: 110px 0; }
 }
 .chat-body {
   padding: 24px;
-  height: 380px;
+  height: 456px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -757,18 +757,42 @@ section { padding: 110px 0; }
   border-top: 1px solid rgba(42, 32, 24, 0.07);
   padding: 16px 20px;
   display: flex;
+  align-items: flex-end;
   gap: 10px;
 }
 .chat-input {
   flex: 1;
   background: var(--color-parchment);
   border: none;
-  border-radius: 100px;
+  border-radius: 18px;
   padding: 11px 18px;
   color: var(--color-ink);
   font-size: 16px;
+  line-height: 1.4;
   font-family: var(--font-sans);
   outline: none;
+  resize: none;
+}
+/* Kleiner Vollbild-Icon-Button neben "Los geht's" */
+.mentor-fs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid rgba(42, 32, 24, 0.12);
+  border-radius: 12px;
+  background: var(--color-parchment);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.mentor-fs-btn:hover {
+  background: rgba(232, 149, 58, 0.12);
+  border-color: rgba(232, 149, 58, 0.35);
 }
 .chat-input::placeholder { color: var(--color-muted2); }
 .mentor-note {
@@ -1479,6 +1503,7 @@ footer {
   .community-wrap { padding: 48px 24px; }
   .podcast-card { padding: 32px; }
   .mentor-layout { gap: 40px; }
+  .chat-body { height: 380px; }
   .random-bar { flex-direction: column; align-items: flex-start; }
 
   /* Mobile: hamburger visible, nav-menu becomes off-canvas drawer */
