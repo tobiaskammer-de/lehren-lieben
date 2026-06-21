@@ -17,14 +17,16 @@ const INITIAL_MESSAGES: Message[] = [
   { role: 'assistant', content: 'Hallo! Wie kann ich dir heute helfen?' },
 ];
 
+const URL_RE = 'https?:\\/\\/[^\\s)»"]+';
+
 /**
- * Wandelt Verweise auf Folgen im Antworttext in klickbare Links um:
- * jeder Folgentitel und jedes "Folge #N", das zu einer echten Folge passt,
- * wird zu einem Link auf die Podigee-Seite der Folge.
+ * Wandelt Verweise im Antworttext in klickbare Links um:
+ *  - jede rohe URL (inkl. „?t="-Deeplink, der direkt zur zitierten Minute springt)
+ *    wird ein kompakter „▶ Reinhören"-Link;
+ *  - jeder Folgentitel und jedes "Folge #N", das zu einer echten Folge passt,
+ *    wird zu einem Link auf die Podigee-Seite der Folge.
  */
 function linkifyEpisodes(text: string, episodes: EpisodeLink[]): ReactNode {
-  if (!episodes.length) return text;
-
   const urlByNeedle = new Map<string, string>();
   const needles: string[] = [];
   const add = (needle: string, url: string) => {
@@ -44,23 +46,28 @@ function linkifyEpisodes(text: string, episodes: EpisodeLink[]): ReactNode {
       add(`Folge ${num}`, e.url);
     }
   }
-  if (!needles.length) return text;
 
   // Längste Treffer zuerst, damit Titel nicht von Teilstücken überlagert werden.
   needles.sort((a, b) => b.length - a.length);
   const escaped = needles.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const re = new RegExp(`(${escaped.join('|')})`, 'gi');
+  const alternatives = [URL_RE, ...escaped];
+  const re = new RegExp(`(${alternatives.join('|')})`, 'gi');
 
   return text.split(re).map((part, i) => {
+    if (!part) return part;
+    if (/^https?:\/\//i.test(part)) {
+      // Rohe URL -> kompakter Reinhören-Link (springt bei „?t=" zur Minute).
+      const href = part.replace(/[.,;:!?»")]+$/, '');
+      const label = /[?&]t=/.test(href) ? '▶ an dieser Stelle anhören' : '▶ zur Folge';
+      return (
+        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="mentor-link">
+          {label}
+        </a>
+      );
+    }
     const url = urlByNeedle.get(part.toLowerCase());
     return url ? (
-      <a
-        key={i}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mentor-link"
-      >
+      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="mentor-link">
         {part}
       </a>
     ) : (

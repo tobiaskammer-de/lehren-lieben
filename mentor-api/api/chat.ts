@@ -2,7 +2,14 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import Anthropic from '@anthropic-ai/sdk';
 // ESM-Pflicht auf Vercel: relative Importe mit .js-Endung, JSON mit Import-Attribut.
 import { SYSTEM_PROMPT } from '../prompt.js';
-import { embedQuery, topChunks, buildContext, type Chunk } from '../lib/rag.js';
+import {
+  embedQuery,
+  topChunks,
+  lexicalTop,
+  buildContext,
+  hasEmbeddings,
+  type Chunk,
+} from '../lib/rag.js';
 import { checkRateLimit, clientIp } from '../lib/ratelimit.js';
 import corpusData from '../corpus.json' with { type: 'json' };
 
@@ -85,31 +92,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return;
   }
 
-  // RAG: nur wenn die "Datenbank" gefüllt ist UND ein OpenAI-Key vorliegt.
-  // Sonst antwortet der Mentor (noch) ohne Transkript-Suche.
+  // RAG: solange der Corpus gefüllt ist, wird immer abgerufen.
+  //  - Mit Embeddings + OpenAI-Key: semantische Vektor-Suche.
+  //  - Sonst: keyless lexikalische Stichwort-Suche (Fallback).
   let context = '';
   const corpus = corpusData as unknown as Chunk[];
   const openaiKey = process.env.OPENAI_API_KEY;
   const lastUser = [...convo].reverse().find((m) => m.role === 'user');
-  if (corpus.length > 0 && openaiKey && lastUser) {
+  if (corpus.length > 0 && lastUser) {
     try {
-      const queryEmbedding = await embedQuery(lastUser.content, openaiKey);
-      context = buildContext(topChunks(queryEmbedding, corpus, 8));
+      if (hasEmbeddings(corpus) && openaiKey) {
+        const queryEmbedding = await embedQuery(lastUser.content, openaiKey);
+        context = buildContext(topChunks(queryEmbedding, corpus, 8));
+      } else {
+        context = buildContext(lexicalTop(lastUser.content, corpus, 8));
+      }
     } catch (err) {
-      // Retrieval-Fehler darf den Chat nicht blockieren — ohne Kontext weiter.
-      console.warn('RAG retrieval failed:', err);
+      // Retrieval-Fehler darf den Chat nicht blockieren — lexikalisch weiterversuchen.
+      console.warn('RAG retrieval failed, fallback lexical:', err);
+      try {
+        context = buildContext(lexicalTop(lastUser.content, corpus, 8));
+      } catch {
+        /* zur Not ganz ohne Kontext weiter */
+      }
     }
   }
 
   const system = context
-    ? `${SYSTEM_PROMPT}\n\nNutze die folgenden Auszüge aus den Podcast-Transkripten, um die Frage zu beantworten. Steht die Antwort dort nicht, sag das ehrlich und antworte aus allgemeinem pädagogischem Wissen. Wenn du dich auf eine Folge stützt, nenne sie kurz.\n\n--- TRANSKRIPT-AUSZÜGE ---\n${context}\n--- ENDE AUSZÜGE ---`
+    ? `${SYSTEM_PROMPT}\n\n--- TRANSKRIPT-AUSZÜGE (Wissensbasis für genau diese Frage) ---\n${context}\n--- ENDE AUSZÜGE ---\n\nAntworte ausschließlich auf Basis dieser Auszüge. Schreibe Tipps der richtigen Person zu (Moderator vs. Preisträger:in). Schließe mit „🎧 Reinhören" inkl. Folge, Zeitmarke (Minute) und dem Reinhören-Link als vollständige URL. Steht die Antwort nicht in den Auszügen, sag das ehrlich.`
     : SYSTEM_PROMPT;
 
   try {
     const client = new Anthropic({ apiKey: anthropicKey });
     const response = await client.messages.create({
       model: MODEL,
-      max_tokens: 800,
+      max_tokens: 1000,
       system,
       messages: convo,
     });

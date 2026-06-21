@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:corpus": "node --env-file=.env --experimental-strip-types scripts/build-corpus.ts"
+    "build:corpus": "node --env-file-if-exists=.env scripts/build-corpus.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",

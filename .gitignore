@@ -14,6 +14,10 @@ node_modules/
 # corpus builder embedding cache
 scripts/.embed-cache.json
 
+# rohe Volltext-Transkripte (regenerierbar via scripts/extract_transcripts.py
+# aus den DOCX; öffentliches Repo -> nur destillierte Karten + corpus.json shippen)
+transcripts/extracted/
+
 # macOS
 .DS_Store
 

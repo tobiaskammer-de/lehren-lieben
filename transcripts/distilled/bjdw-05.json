@@ -1,0 +1,200 @@
+[
+  {
+    "topic": "Arbeitsblatt in Minuten",
+    "insight": "Eine spontane Unterrichtsidee lässt sich mit KI per Sprachbefehl in wenige Minuten in ein fertiges, dreigliedriges Arbeitsblatt verwandeln. Alexander hatte morgens eine Idee und kurz vor Unterrichtsbeginn das fertige Material in der Hand.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "4.45 Uhr hatte ich eine Idee für einen Unterrichtseinstieg. Und das fertige Arbeitsblatt hatte ich 16.49 Uhr.",
+    "tsDisplay": "00:21.000",
+    "category": "Fallbeispiel"
+  },
+  {
+    "topic": "KI per Sprache füttern",
+    "insight": "Statt zu tippen, kann man der KI eine Unterrichtsidee einfach per Sprachfunktion diktieren. Die KI greift die Idee auf, schlägt ein Arbeitsblatt vor und liefert in zwei Minuten einen brauchbaren Entwurf, der nur noch minimal angepasst werden muss.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "Und genau das hab ich jetzt, ja, genauso wie ich's jetzt auch gesagt hab, meiner KI per Sprache mitgezahlt.",
+    "tsDisplay": "12:32.606",
+    "category": "Tipp"
+  },
+  {
+    "topic": "Klausurtexte sprachlich vereinfachen",
+    "insight": "Einen schweren Originaltext (z.B. aus dem Abi) in die KI füttern und neu schreiben lassen unter Beibehaltung von Struktur, Inhalt und Kernaussagen, nur sprachlich einfacher. So entsteht eine Trainingsversion eine Niveaustufe tiefer; in der Klausur erhalten die Schüler dann den Originaltext.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Ich füttere den Originaltext in Chechipiti und bitte dann Chechipiti, diesen Text nochmal neu zu schreiben, unter Beibehaltung der Struktur, unter Beibehaltung des Inhalts, unter Beibehaltung der Kernaussagen, nur mit einfacheren Ausdrücken, sprachlich einfacher.",
+    "tsDisplay": "15:52.648",
+    "category": "Methode"
+  },
+  {
+    "topic": "Differenzierte Arbeitsblätter",
+    "insight": "Mit KI lassen sich Arbeitsblätter auf einen Klick in unterschiedlichen Anforderungsniveaus erzeugen, etwa eine normale und eine fordernde Variante, ohne dass Mehraufwand entsteht. Das erleichtert Binnendifferenzierung erheblich.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "die Möglichkeit, einem Klick Arbeitsblätter auf unterschiedlichem Anforderungsniveau zu gestalten",
+    "tsDisplay": "14:47.630",
+    "category": "Tipp"
+  },
+  {
+    "topic": "Gamma fuer Praesentationen",
+    "insight": "Mit dem Tool Gamma genügt die Eingabe eines Themas, um eine fertige, abspielbereite Präsentation mit passenden Bildern, Überschriften, rhetorischen Fragen und Inhaltsverzeichnis zu erhalten. Schüler nutzen so etwas, um Referatsaufwand zu minimieren.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Ich sage Gemma.app Da tippst du einfach nur das Thema ein und heraus kommt eine fertige Präsentation, die du direkt auf Play drücken kannst.",
+    "tsDisplay": "17:31.406",
+    "category": "Tool"
+  },
+  {
+    "topic": "Misstrauen bei guter Leistung",
+    "insight": "Ein verbreiteter Reflex ist, fehlerfreie Schülerarbeiten automatisch der KI zuzuschreiben. Das führt dazu, dass Lehrkräfte gerade gute Leistungen misstrauisch betrachten, was die innere Haltung gegenüber starken Schülern problematisch verschiebt.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "du merkst, wenn die komplett fehlerfreie Sachen abgeben, dann ist es von der KI",
+    "tsDisplay": "17:31.406",
+    "category": "Haltung"
+  },
+  {
+    "topic": "Definition von Leistung",
+    "insight": "Statt KI-Nutzung nur abzuwehren, sollte der Leistungsbegriff überdacht werden. Wenn Rechtschreibung und das bloße Abliefern einer Präsentation nicht mehr die eigentliche Leistung sind, muss neu definiert werden, was Schüler eigenständig erbringen sollen.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "vielleicht müssen wir einfach unsere Definition von Leistung ändern. Die Leistung ist nicht mehr Rechtschreibung",
+    "tsDisplay": "19:27.854",
+    "category": "Haltung"
+  },
+  {
+    "topic": "Das Wort zu als Warnsignal",
+    "insight": "Eine befreundete Psychologin gab den Hinweis, dass das Wort zu ein Alarmsignal ist: Wenn etwas zu nett, zu perfekt oder zu glatt ist, stimmt oft etwas nicht. Das heißt nicht zwingend, dass geschummelt wurde, hilft Lehrkräften aber, aufmerksamer hinzusehen.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Wenn Menschen zu Punkt, Punkt, Punkt sind, dann stimmt meistens irgendwas nicht. Wenn sie zu nett sind, wenn sie zu viel lächeln oder wenn Schülerleistungen einfach zu perfekt sind, dann ist irgendwas fischi.",
+    "tsDisplay": "19:57.034",
+    "category": "Tipp"
+  },
+  {
+    "topic": "De-Skilling durch KI",
+    "insight": "Der Artikel von Florian Nuxoll auf dem Deutschen Schulportal beschreibt, dass KI den Lernprozess überspringt und nötige Kompetenzen nicht mehr entwickelt werden (De-Skilling). Erst wenn Schüler begreifen, dass sie im Abi ohne KI bestehen müssen, nutzen sie KI sinnvoll als Lernpartner.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "der Lernprozess in der Schule wird durch KI einfach übersprungen von den Schülern. Weil KI halt den Lernprozess abnimmt.",
+    "tsDisplay": "22:10.646",
+    "category": "Literatur"
+  },
+  {
+    "topic": "Illusion von Kompetenz",
+    "insight": "KI verleitet Schüler dazu, eine Illusion von Wissen aufzubauen: Sie glauben, etwas zu können, bauen aber tatsächlich nur Abhängigkeit auf. Fällt das Werkzeug weg, fehlt die Substanz. Lehrkräfte hingegen nutzen KI als Unterstützung, die sie kritisch reviewen können, ohne abhängig zu werden.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Sie haben die Illusion, etwas zu beherrschen und zu können, was sie aber nicht tun. Stattdessen ist das Einzige, was sie aufbauen, Abhängigkeit.",
+    "tsDisplay": "24:12.682",
+    "category": "Haltung"
+  },
+  {
+    "topic": "FellowFish Klausurkorrektur",
+    "insight": "Die Plattform FellowFish (früher Fiete.ai) korrigiert Klausuren KI-gestützt und gibt individualisiertes Feedback anhand von Kriterien, die die Lehrkraft vorgibt. Schüler erhalten über einen QR-Code Zugang, tippen ihre Antwort ein, bekommen sofort Hinweise und können vor der finalen Abgabe überarbeiten.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "FellowFish hat sich zum Ziel gesetzt, Klausuren selbstständig zu korrigieren und zu befeedbacken, basierend auf Kriterien, die du dieser App gibst.",
+    "tsDisplay": "27:31.000",
+    "category": "Tool"
+  },
+  {
+    "topic": "Einarbeitung lohnt sich",
+    "insight": "In FellowFish einzuarbeiten kostet rund zwei Stunden, doch gemessen am Korrekturaufwand textlastiger Fächer wie Deutsch, Englisch oder Pädagogik ist das gut investierte Zeit. Bei vielen KI-Werkzeugen gilt: einmal investieren, danach dauerhaft entlastet sein.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Der Reinerlös der Zeit, den man rausholt, ist hinterher groß, aber man muss einmal etwas investieren.",
+    "tsDisplay": "30:50.190",
+    "category": "Tipp"
+  },
+  {
+    "topic": "Individualisiertes Schuljahres-Feedback",
+    "insight": "Am Schuljahresende füttert man ChatGPT mit der Notenliste eines Schülers und lässt eine persönliche Rückmeldung über Lern- und Arbeitsverlauf formulieren. Die Eingabe erfolgt per Sprachfunktion, Schüler für Schüler. Das Feedback der Schüler darauf ist sehr positiv, weil jeder eine individuelle Nachricht erhält.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Ich nutz tatsächlich auch ChapGPT. am Ende des Schuljahres individualisierte Feedbacks an Schüler zu geben.",
+    "tsDisplay": "31:52.910",
+    "category": "Methode"
+  },
+  {
+    "topic": "NotebookLM Lernpodcasts",
+    "insight": "Googles NotebookLM erzeugt aus selbst gewählten Quellen neun- bis zehnminütige Podcast-Folgen, die alles Wichtige zu einem Thema zusammenfassen, ideal für Referendare zum Einarbeiten in neue Inhalte. Es kostet nichts und halluziniert nicht, weil es sich nur auf die hinzugefügten Quellen stützt.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "daraus erstellt die KI dann Podcast-Folgen von neun bis zehn Minuten Länge, wo alles Wichtige zusammengequetscht ist, was man über dieses Thema hören muss",
+    "tsDisplay": "33:55.797",
+    "category": "Tool"
+  },
+  {
+    "topic": "NotebookLM Erklaervideos",
+    "insight": "NotebookLM erstellt auf einen Klick komplette Lernvideos mit strukturierten Folien, Texten, Bildern und eingesprochenem Kommentar, auch zu Nischenthemen, die es auf YouTube nicht gibt (z.B. ein Brennball-Erklärvideo für den Sportunterricht oder französische Grammatik).",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Du kannst mit einem... Klick Lernvideos erstellen, die es auf YouTube nicht gibt zu deinem Thema, weil das zu nischenhaft ist.",
+    "tsDisplay": "36:37.334",
+    "category": "Tool"
+  },
+  {
+    "topic": "KI schafft Zeit fuer Beziehung",
+    "insight": "Die Leithypothese der Folge: KI nimmt Routineaufgaben ab und schafft so Zeit für mehr Menschlichkeit, Gespräche und Beziehungsarbeit. Während die KI etwa ein Erklärvideo zeigt, kann sich die Lehrkraft dem zurückgezogenen Kind in der hintersten Reihe zuwenden.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "KI schafft Zeit für mehr Menschlichkeit, Routineaufgaben weg und mehr Raum für Gespräche und Beziehungsarbeit.",
+    "tsDisplay": "38:37.006",
+    "category": "Haltung"
+  },
+  {
+    "topic": "Methode der Woche: KI-Dialog",
+    "insight": "Zur Sicherung am Ende einer Unterrichtsreihe lässt man Schüler vier bis fünf hochwertige Fragen an die Autorität einer Theorie formulieren, überlegt deren mögliche Antworten, befragt dann eine KI, die diese Person verkörpert, und reflektiert zum Schluss die Antworten. So gelangt man bis ins Anforderungsniveau AFB 3.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "dass die Schüler vier, fünf hochwertige Fragen formulieren an die Autorität, die eine Theorie erstellt hat. Dann überlegen wir uns, wie diese Person wohl antworten würde. Dann befragen wir die Person selbst in Form einer KI",
+    "tsDisplay": "41:07.518",
+    "category": "Methode"
+  },
+  {
+    "topic": "Audio-Qualitaet variiert",
+    "insight": "Die Dialog- und Audioqualität von KI-Chatbots schwankt: ChatGPTs früher sehr gute Sprachausgabe wurde heruntergedreht, weshalb sich für lebendige Charakter-Dialoge derzeit eher Grok (x.ai) eignet. Man muss mit dem aktuellen Stand experimentieren.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Man muss so bisschen experimentieren mit dem aktuellen Stand der KI's. Früher ging das mit Chat-GPT extrem gut. Die haben aber die Qualität ihrer Dialogfunktion runtergedreht.",
+    "tsDisplay": "41:07.518",
+    "category": "Tipp"
+  },
+  {
+    "topic": "Eigener Experten-Chatbot",
+    "insight": "Alexander hat einen Chatbot eingerichtet, der ausschließlich auf den transkribierten Interviews mit Preisträgern des Deutschen Lehrkräftepreises antwortet. Auf eine konkrete Frage nennt der Bot eine erprobte Methode samt Quelle (z.B. die Schlüsselbundmethode von Tagrid Josef) und bietet an, passendes Material zu erstellen.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "habe ich ein Chatbot eingerichtet, der sich bei seinen Antworten nur auf den Transkripten meiner bisherigen Podcasts diesen Lehrkräftepreisträgern beruht",
+    "tsDisplay": "44:44.820",
+    "category": "Methode"
+  },
+  {
+    "topic": "Sicherungsmethoden-Buch",
+    "insight": "Tobias hat zwei Methodenbücher veröffentlicht: eine Sammlung von Unterrichtseinstiegen sowie das nach eigener Aussage erste Buch im deutschsprachigen Markt zu Sicherungsmethoden mit 50 systematisch sortierten Methoden, darunter auch der KI-Dialog.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Die Sicherungsmethoden, das ist one of a kind, das allererste Buch überhaupt im deutschsprachigen Markt, das Sicherungsmethoden thematisiert.",
+    "tsDisplay": "47:26.958",
+    "category": "Literatur"
+  },
+  {
+    "topic": "Gegen Tool-Ueberforderung",
+    "insight": "Gegen das Gefühl, alle Tools kennen zu müssen, hilft es, zuerst vom Bedarf der Schüler her zu denken und dann die KI gezielt nach wenigen passenden Apps zu fragen, mit der ausdrücklichen Bitte, nicht zu überfordern. Niemand muss alle Werkzeuge beherrschen.",
+    "speaker": "Alexander Böhle",
+    "role": "Moderator",
+    "quote": "würde ich vielleicht sogar der KI sagen, aber erschlag mich nicht, mir ein, zwei gute Apps dazu",
+    "tsDisplay": "48:56.750",
+    "category": "Tipp"
+  },
+  {
+    "topic": "Beziehung schlaegt Digitalitaet",
+    "insight": "Digitalität macht nicht automatisch zu guten Lehrkräften, und analoges Arbeiten macht nicht automatisch zu schlechten. Ausschlaggebend für guten Unterricht ist die Beziehungsarbeit zu den Schülern; KI ist nur ein unterstützendes Werkzeug.",
+    "speaker": "Tobias Kammer",
+    "role": "Moderator",
+    "quote": "Digitalität macht uns nicht automatisch zu guten Lehrern. Und analog zu arbeiten und undigital zu arbeiten macht uns nicht automatisch zu schlechten Lehrern, sondern die Beziehungsarbeit zu unseren Schülern zeichnet aus, ob es guter Unterricht oder schlechter Unterricht ist.",
+    "tsDisplay": "50:51.338",
+    "category": "Haltung"
+  }
+]
