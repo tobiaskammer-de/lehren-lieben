@@ -8,8 +8,10 @@
 
 import { Redis } from '@upstash/redis';
 
-const url = process.env.UPSTASH_REDIS_REST_URL;
-const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+// Die Vercel-Upstash-Integration legt die Variablen unter KV_*-Namen an;
+// direkt bei Upstash heißen sie UPSTASH_*. Beide werden unterstützt.
+const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 const redis = url && token ? new Redis({ url, token }) : null;
 
 let warnedMissing = false;
@@ -33,7 +35,7 @@ export function clientIp(headers: Record<string, string | string[] | undefined>)
 export async function checkRateLimit(ip: string, limit: number): Promise<RateResult> {
   if (!redis) {
     if (!warnedMissing) {
-      console.warn('Rate-Limit inaktiv: UPSTASH_REDIS_REST_URL/_TOKEN nicht gesetzt (fail-open).');
+      console.warn('Rate-Limit inaktiv: weder UPSTASH_* noch KV_REST_API_* gesetzt (fail-open).');
       warnedMissing = true;
     }
     return { ok: true, remaining: limit, configured: false };
