@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { asset } from '../lib/url';
 
 type Role = 'user' | 'assistant';
 type Message = { role: Role; content: string };
@@ -155,7 +156,7 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
 
   const header = (
     <div className="mentor-hd">
-      <div className="mentor-icon">L</div>
+      <img className="mentor-logo" src={asset('uploads/Transparent Logo.png')} alt="Lehren Lieben" />
       <div>
         <div className="mentor-name">Lehrkraftmentor</div>
         <div className="mentor-tagline">
