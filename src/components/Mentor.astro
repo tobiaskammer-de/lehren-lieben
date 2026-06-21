@@ -1,9 +1,13 @@
 ---
 import LehrkraftmentorChat from './LehrkraftmentorChat.tsx';
+import { episodes } from '../data/episodes.ts';
+
+// Folgen-Daten (Titel, Nummer, Link) für klickbare Verweise im Antworttext.
+const episodeLinks = episodes.map((e) => ({ title: e.title, ep: e.ep, url: e.url }));
 ---
 
 <section id="mentor">
   <div class="container-page">
-    <LehrkraftmentorChat client:visible />
+    <LehrkraftmentorChat client:visible episodes={episodeLinks} />
   </div>
 </section>

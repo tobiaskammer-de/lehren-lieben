@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import LehrkraftmentorChat from '../components/LehrkraftmentorChat.tsx';
+import { episodes } from '../data/episodes.ts';
+
+// Eigenständige Popup-Seite: nur der Chat im Vollbild-Modus.
+const episodeLinks = episodes.map((e) => ({ title: e.title, ep: e.ep, url: e.url }));
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lehrkraftmentor · Lehren Lieben</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--color-cream2);
+      }
+    </style>
+  </head>
+  <body>
+    <LehrkraftmentorChat client:load fullscreen episodes={episodeLinks} />
+  </body>
+</html>

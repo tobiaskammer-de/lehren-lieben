@@ -700,7 +700,7 @@ section { padding: 110px 0; }
 }
 .chat-body {
   padding: 24px;
-  height: 280px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -774,6 +774,25 @@ section { padding: 110px 0; }
 .mentor-note a {
   color: var(--color-amber);
   text-decoration: none;
+}
+/* Folgen-Verweise im Antworttext des Mentors */
+.mentor-link {
+  color: var(--color-amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+/* Vollbild-Popup: Frame füllt das Fenster, Chat-Bereich wächst mit */
+.mentor-frame--full {
+  border-radius: 0;
+  box-shadow: none;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.chat-body--full {
+  height: auto;
+  flex: 1 1 auto;
 }
 
 /* ──────────────────────────────────────────────────────────────
