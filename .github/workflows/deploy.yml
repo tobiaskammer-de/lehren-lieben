@@ -36,6 +36,10 @@ jobs:
 
       - name: Build Astro
         run: npm run build
+        env:
+          # URL der separaten Chat-Funktion (Vercel). Wird ins Widget gebacken.
+          # Wert setzen unter: GitHub → Settings → Secrets and variables → Actions → Variables.
+          PUBLIC_MENTOR_API_URL: ${{ vars.PUBLIC_MENTOR_API_URL }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

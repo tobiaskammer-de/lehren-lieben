@@ -38,8 +38,9 @@ export default function LehrkraftmentorChat() {
     setSending(true);
 
     try {
-      const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '/');
-      const endpoint = (base.endsWith('/') ? base : base + '/') + 'api/chat';
+      // Die Chat-Funktion läuft separat (Vercel). URL wird beim Build über
+      // PUBLIC_MENTOR_API_URL gesetzt; lokal fällt sie auf /api/chat zurück.
+      const endpoint = import.meta.env.PUBLIC_MENTOR_API_URL || '/api/chat';
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -47,8 +48,26 @@ export default function LehrkraftmentorChat() {
       });
 
       if (!res.ok) {
-        const body = await res.text();
-        throw new Error(body || `HTTP ${res.status}`);
+        let serverMsg = '';
+        try {
+          serverMsg = ((await res.json()) as { error?: string }).error || '';
+        } catch {
+          /* kein JSON-Body */
+        }
+        if (res.status === 429) {
+          // Tageslimit erreicht — freundlich anzeigen, kein "Fehler".
+          setMessages((m) => [
+            ...m,
+            {
+              role: 'assistant',
+              content:
+                serverMsg ||
+                'Du hast das heutige Fragenlimit erreicht. Schau morgen gern wieder vorbei!',
+            },
+          ]);
+          return;
+        }
+        throw new Error(serverMsg || `HTTP ${res.status}`);
       }
 
       const data = (await res.json()) as { reply: string };
@@ -111,7 +130,7 @@ export default function LehrkraftmentorChat() {
           <div>
             <div className="mentor-name">Lehrkraftmentor</div>
             <div className="mentor-tagline">
-              Powered by ChatGPT · basiert auf echten Podcastgesprächen
+              Powered by Claude · basiert auf echten Podcastgesprächen
             </div>
           </div>
           <a
