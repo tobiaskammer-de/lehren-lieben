@@ -119,7 +119,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   const system = context
-    ? `${SYSTEM_PROMPT}\n\n--- TRANSKRIPT-AUSZÜGE (Wissensbasis für genau diese Frage) ---\n${context}\n--- ENDE AUSZÜGE ---\n\nAntworte ausschließlich auf Basis dieser Auszüge. Schreibe Tipps der richtigen Person zu (Moderator vs. Preisträger:in). Schließe mit „🎧 Reinhören" inkl. Folge, Zeitmarke (Minute) und dem Reinhören-Link als vollständige URL. Steht die Antwort nicht in den Auszügen, sag das ehrlich.`
+    ? `${SYSTEM_PROMPT}\n\n--- TRANSKRIPT-AUSZÜGE (Wissensbasis für genau diese Frage) ---\n${context}\n--- ENDE AUSZÜGE ---\n\nAntworte ausschließlich auf Basis dieser Auszüge, ohne Zwischenüberschriften. Schreibe Tipps der richtigen Person zu (Moderator vs. Preisträger:in). Setze unter JEDEN Tipp direkt (eigene Zeile) seinen Reinhören-Link in der Form „🎧 Folge #N „Titel" ab MM:SS — URL" und übernimm die URL (mit #t=) unverändert aus dem Auszug — sammle die Links NICHT am Ende. Steht die Antwort nicht in den Auszügen, sag das ehrlich.`
     : SYSTEM_PROMPT;
 
   try {

@@ -44,7 +44,8 @@ function tsToSeconds(ts) {
 function deeplink(url, seconds) {
   if (!url) return '';
   if (seconds == null) return url;
-  return url.includes('?') ? `${url}&t=${seconds}` : `${url}?t=${seconds}`;
+  // Podigee springt NUR über den URL-Hash zur Zeit (#t=Sekunden) — ?t= wird ignoriert.
+  return `${url}#t=${seconds}`;
 }
 
 /** Header (4 Zeilen + Trennlinie) vom Body trennen. */

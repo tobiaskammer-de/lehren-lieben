@@ -54,7 +54,7 @@ function linkifyInline(text: string, episodes: EpisodeLink[], keyBase: string): 
     if (/^https?:\/\//i.test(part)) {
       // Rohe URL -> kompakter Reinhören-Link (springt bei „?t=" zur Minute).
       const href = part.replace(/[.,;:!?»")]+$/, '');
-      const label = /[?&]t=/.test(href) ? '▶ an dieser Stelle anhören' : '▶ zur Folge';
+      const label = /[?&#]t=/.test(href) ? '▶ an dieser Stelle anhören' : '▶ zur Folge';
       return (
         <a key={`${keyBase}-${i}`} href={href} target="_blank" rel="noopener noreferrer" className="mentor-link">
           {label}
@@ -105,9 +105,16 @@ function renderMarkdown(text: string, episodes: EpisodeLink[]): ReactNode {
   let k = 0;
   const flush = () => {
     if (para.length) {
+      // Zeilenumbrüche im Absatz erhalten (<br>), damit z. B. der Reinhören-Link
+      // direkt unter dem zugehörigen Tipp steht statt in derselben Zeile.
+      const inner: ReactNode[] = [];
+      para.forEach((ln, idx) => {
+        if (idx) inner.push(<br key={`br${k}-${idx}`} />);
+        inner.push(...renderInline(ln, episodes, `p${k}-${idx}`));
+      });
       blocks.push(
         <p key={`p${k++}`} className="mentor-p">
-          {renderInline(para.join(' '), episodes, `p${k}`)}
+          {inner}
         </p>,
       );
       para = [];
