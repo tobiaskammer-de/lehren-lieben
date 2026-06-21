@@ -2,7 +2,6 @@
   "name": "lehrkraftmentor-api",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",
     "@upstash/redis": "^1.38.0"
