@@ -35,14 +35,14 @@ Array von Objekten: `topic`, `insight`, `speaker`, `role`
 
 ## Abdeckung (Stand 2026-06-21)
 
-29 Folgen destilliert, 763 Karten.
+31 Folgen destilliert, 818 Karten.
 
-- **Bester Job der Welt:** #1–#17, #20 sowie „Vom Krankenbett ins Klassenzimmer".
+- **Bester Job der Welt:** #1–#20 (außer Minifolge) sowie „Vom Krankenbett ins Klassenzimmer".
+  #18 + #19 stammen aus den offiziellen Podigee-VTTs (diarisiert, via `scripts/add_from_podigee_vtt.py`).
 - **Ausgezeichnete Lehrkräfte:** #1, #2, #3, #6, #8, #9, #10, #11, #12, #13.
 
 **Noch fehlende Transkripte (Lücken):**
-- Bester Job: **#18 KIPPPUNKT (Hurrelmann)**, **#19 Unterrichtseinstiege**,
-  **Minifolge „erstes Mal"**.
+- Bester Job: **Minifolge „erstes Mal"**.
 - Ausgezeichnete: **#4 Björn Schlese**, **#5 Schlese Teil 2**, **#7 Tobias Rusteberg**.
 
 (Im DOCX liegt zusätzlich #14 Werner Fick — noch nicht auf Podigee veröffentlicht,

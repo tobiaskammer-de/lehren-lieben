@@ -351,6 +351,34 @@
     "file": "extracted/bjdw-17.txt"
   },
   {
+    "id": "bjdw-18",
+    "show": "Bester Job der Welt",
+    "cls": "amber",
+    "ep": "#18",
+    "num": 18,
+    "title": "KIPPPUNKT – Prof. Klaus Hurrelmann über die große Stunde der Pädagogik",
+    "url": "https://lehrkraftbesterjobderwelt.podigee.io/19-hurrelmann-jugend",
+    "source": "podigee-vtt",
+    "timestamps": 45,
+    "chars": 0,
+    "file": "extracted/bjdw-18.txt",
+    "note": "Offizielles Podigee-VTT (diarisiert: Speaker-Nummern, keine Namen)."
+  },
+  {
+    "id": "bjdw-19",
+    "show": "Bester Job der Welt",
+    "cls": "amber",
+    "ep": "#19",
+    "num": 19,
+    "title": "UNTERRICHTSEINSTIEGE - Hefte raus, Seite 242, los gehts!!(?)",
+    "url": "https://lehrkraftbesterjobderwelt.podigee.io/20-neue-episode",
+    "source": "podigee-vtt",
+    "timestamps": 171,
+    "chars": 0,
+    "file": "extracted/bjdw-19.txt",
+    "note": "Offizielles Podigee-VTT (diarisiert: Speaker-Nummern, keine Namen)."
+  },
+  {
     "id": "bjdw-20",
     "show": "Bester Job der Welt",
     "cls": "amber",
