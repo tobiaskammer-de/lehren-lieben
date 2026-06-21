@@ -165,10 +165,27 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
         <button
           type="button"
           onClick={openFullscreen}
-          className="btn btn-soft"
-          style={{ marginLeft: 'auto', fontSize: 11, padding: '8px 16px', borderRadius: 100 }}
+          className="mentor-fs-btn"
+          style={{ marginLeft: 'auto' }}
+          aria-label="Vollbild öffnen"
+          title="Vollbild öffnen"
         >
-          Vollbild
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+            <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+            <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+            <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+          </svg>
         </button>
       )}
     </div>
@@ -220,38 +237,11 @@ export default function LehrkraftmentorChat({ fullscreen = false, episodes = [] 
       />
       <button
         type="submit"
-        className="btn btn-amber"
-        style={{ fontSize: 13, padding: '11px 20px' }}
+        className="btn btn-amber mentor-send-btn"
         disabled={sending || !input.trim()}
       >
         {sending ? '…' : "Los geht's"}
       </button>
-      {!fullscreen && (
-        <button
-          type="button"
-          className="mentor-fs-btn"
-          onClick={openFullscreen}
-          aria-label="Vollbild öffnen"
-          title="Vollbild öffnen"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M8 3H5a2 2 0 0 0-2 2v3" />
-            <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
-            <path d="M3 16v3a2 2 0 0 0 2 2h3" />
-            <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
-          </svg>
-        </button>
-      )}
     </form>
   );
 

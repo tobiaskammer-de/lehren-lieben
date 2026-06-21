@@ -794,6 +794,14 @@ section { padding: 110px 0; }
   background: rgba(232, 149, 58, 0.12);
   border-color: rgba(232, 149, 58, 0.35);
 }
+/* "Los geht's": auf Höhe des zweizeiligen Textfelds, ganz rechts */
+.mentor-send-btn {
+  align-self: stretch;
+  flex-shrink: 0;
+  padding: 0 22px;
+  font-size: 14px;
+  white-space: nowrap;
+}
 .chat-input::placeholder { color: var(--color-muted2); }
 .mentor-note {
   font-size: 12px;
