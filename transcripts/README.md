@@ -35,16 +35,14 @@ Array von Objekten: `topic`, `insight`, `speaker`, `role`
 
 ## Abdeckung (Stand 2026-06-21)
 
-32 Folgen destilliert, 840 Karten.
+35 Folgen destilliert, 892 Karten — **alle veröffentlichten Folgen beider Podcasts**.
 
-- **Bester Job der Welt:** #1–#20 (außer Minifolge) sowie „Vom Krankenbett ins Klassenzimmer".
-  #18 + #19 stammen aus offiziellen Podigee-VTTs (via `scripts/add_from_podigee_vtt.py`).
-- **Ausgezeichnete Lehrkräfte:** #1–#4, #6, #8–#13 (#4 aus Podigee-VTT).
+- **Bester Job der Welt:** alle 22 (#1–#20, Minifolge, „Vom Krankenbett ins Klassenzimmer").
+- **Ausgezeichnete Lehrkräfte:** alle 13 (#1–#13).
 
-**Noch fehlende Transkripte (Lücken — KEIN Podigee-VTT vorhanden):**
-- Bester Job: **Minifolge „erstes Mal"**.
-- Ausgezeichnete: **#5 Schlese Teil 2**, **#7 Tobias Rusteberg**.
-- Diese drei nur per lokalem Whisper aus dem Audio (Enclosure-MP3) machbar — whisper-cli + turbo-Modell.
+Quellen je Folge: gereinigte **DOCX** (Großteil), **Podigee-VTT** (#4, #18, #19; via `scripts/add_from_podigee_vtt.py`), **Schneide-Bot-SRT** (Krankenbett) und **lokales Whisper** (#5, #7, Minifolge; via `scripts/whisper_to_extracted.py`, aus den Enclosure-MP3s). VTT/SRT/Whisper-Folgen haben keine bzw. nur teilweise Sprecher-Labels — die Zuordnung wurde bei der Destillation aus dem Inhalt erschlossen.
+
+**Noch offen:** nur #14 Werner Fick (Ausgezeichnete) — im DOCX vorhanden, aber noch nicht auf Podigee veröffentlicht, daher bewusst nicht im Live-Corpus.
 
 (Im DOCX liegt zusätzlich #14 Werner Fick — noch nicht auf Podigee veröffentlicht,
 daher bewusst nicht im Live-Corpus.)

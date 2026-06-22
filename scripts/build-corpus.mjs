@@ -90,7 +90,8 @@ async function main() {
     if (!ep) { console.warn(`  [WARN] keine Episode-Metadaten für ${id}`); continue; }
     const cards = JSON.parse(await readFile(new URL(f, DISTILLED), 'utf8'));
     for (const c of cards) {
-      const sec = tsToSeconds(c.tsDisplay);
+      const tsClean = (c.tsDisplay || '').replace(/[()[\]]/g, '').trim();
+      const sec = tsToSeconds(tsClean);
       const text =
         `Thema: ${c.topic || ''}\n${c.insight || ''}\n` +
         `O-Ton ${c.speaker || '?'}${c.role ? ` (${c.role})` : ''}: »${c.quote || ''}«`;
@@ -107,7 +108,7 @@ async function main() {
         ep: ep.ep || '',
         episodeTitle: ep.title,
         url: ep.url || '',
-        tsDisplay: c.tsDisplay || '',
+        tsDisplay: tsClean,
         tStart: sec,
         deeplink: deeplink(ep.url, sec),
         embedding: [],

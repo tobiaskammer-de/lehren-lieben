@@ -53,6 +53,20 @@
     "note": "Offizielles Podigee-VTT (diarisiert: Speaker-Nummern, keine Namen)."
   },
   {
+    "id": "ausgez-05",
+    "show": "Ausgezeichnete Lehrkräfte",
+    "cls": "teal",
+    "ep": "#5",
+    "num": 5,
+    "title": "Björn Schlese (Teil 2) mit seinen Schülern (Physik und Mathe)",
+    "url": "https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/5-new-episode",
+    "source": "whisper",
+    "timestamps": 157,
+    "chars": 0,
+    "file": "extracted/ausgez-05.txt",
+    "note": "Lokal mit whisper-cli (turbo) aus der Audio-MP3; keine Sprecher-Labels."
+  },
+  {
     "id": "ausgez-06",
     "show": "Ausgezeichnete Lehrkräfte",
     "cls": "teal",
@@ -64,6 +78,20 @@
     "timestamps": 88,
     "chars": 84248,
     "file": "extracted/ausgez-06.txt"
+  },
+  {
+    "id": "ausgez-07",
+    "show": "Ausgezeichnete Lehrkräfte",
+    "cls": "teal",
+    "ep": "#7",
+    "num": 7,
+    "title": "Tobias Rusteberg - SEK I+II (Französisch und Deutsch)",
+    "url": "https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/7-new-episode",
+    "source": "whisper",
+    "timestamps": 198,
+    "chars": 0,
+    "file": "extracted/ausgez-07.txt",
+    "note": "Lokal mit whisper-cli (turbo) aus der Audio-MP3; keine Sprecher-Labels."
   },
   {
     "id": "ausgez-08",
@@ -363,6 +391,20 @@
     "timestamps": 103,
     "chars": 45986,
     "file": "extracted/bjdw-17.txt"
+  },
+  {
+    "id": "bjdw-minifolge",
+    "show": "Bester Job der Welt",
+    "cls": "amber",
+    "ep": "",
+    "num": 17,
+    "title": "Minifolge: Tobis und Alex' erstes Mal!",
+    "url": "https://lehrkraftbesterjobderwelt.podigee.io/17-neue-episode",
+    "source": "whisper",
+    "timestamps": 7,
+    "chars": 0,
+    "file": "extracted/bjdw-minifolge.txt",
+    "note": "Lokal mit whisper-cli (turbo) aus der Audio-MP3; keine Sprecher-Labels."
   },
   {
     "id": "bjdw-18",
