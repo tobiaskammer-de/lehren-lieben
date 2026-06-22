@@ -39,6 +39,20 @@
     "file": "extracted/ausgez-03.txt"
   },
   {
+    "id": "ausgez-04",
+    "show": "Ausgezeichnete Lehrkräfte",
+    "cls": "teal",
+    "ep": "#4",
+    "num": 4,
+    "title": "Björn Schlese - SEK I+II (Physik und Mathe)",
+    "url": "https://deutschlandsausgezeichnetelaehrkraefte.podigee.io/4-new-episode",
+    "source": "podigee-vtt",
+    "timestamps": 115,
+    "chars": 0,
+    "file": "extracted/ausgez-04.txt",
+    "note": "Offizielles Podigee-VTT (diarisiert: Speaker-Nummern, keine Namen)."
+  },
+  {
     "id": "ausgez-06",
     "show": "Ausgezeichnete Lehrkräfte",
     "cls": "teal",

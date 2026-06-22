@@ -35,15 +35,16 @@ Array von Objekten: `topic`, `insight`, `speaker`, `role`
 
 ## Abdeckung (Stand 2026-06-21)
 
-31 Folgen destilliert, 818 Karten.
+32 Folgen destilliert, 840 Karten.
 
 - **Bester Job der Welt:** #1–#20 (außer Minifolge) sowie „Vom Krankenbett ins Klassenzimmer".
-  #18 + #19 stammen aus den offiziellen Podigee-VTTs (diarisiert, via `scripts/add_from_podigee_vtt.py`).
-- **Ausgezeichnete Lehrkräfte:** #1, #2, #3, #6, #8, #9, #10, #11, #12, #13.
+  #18 + #19 stammen aus offiziellen Podigee-VTTs (via `scripts/add_from_podigee_vtt.py`).
+- **Ausgezeichnete Lehrkräfte:** #1–#4, #6, #8–#13 (#4 aus Podigee-VTT).
 
-**Noch fehlende Transkripte (Lücken):**
+**Noch fehlende Transkripte (Lücken — KEIN Podigee-VTT vorhanden):**
 - Bester Job: **Minifolge „erstes Mal"**.
-- Ausgezeichnete: **#4 Björn Schlese**, **#5 Schlese Teil 2**, **#7 Tobias Rusteberg**.
+- Ausgezeichnete: **#5 Schlese Teil 2**, **#7 Tobias Rusteberg**.
+- Diese drei nur per lokalem Whisper aus dem Audio (Enclosure-MP3) machbar — whisper-cli + turbo-Modell.
 
 (Im DOCX liegt zusätzlich #14 Werner Fick — noch nicht auf Podigee veröffentlicht,
 daher bewusst nicht im Live-Corpus.)
