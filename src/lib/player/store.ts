@@ -153,6 +153,13 @@ function media(): HTMLAudioElement {
     set({ buffered: end });
   });
   a.addEventListener('ended', () => {
+    // Bricht der Stream ab, melden Browser mitunter "ended" weit vor dem echten
+    // Ende. Das ist kein Durchhören: Stelle behalten und neu laden lassen.
+    const expected = finite(a.duration, 0) || state.ep?.dur || 0;
+    if (expected && a.currentTime < expected - 10) {
+      set({ status: 'error', time: a.currentTime });
+      return;
+    }
     markDone();
     set({ status: 'paused', time: 0 });
   });
