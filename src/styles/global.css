@@ -1825,6 +1825,29 @@ html:has(.pl-sheet) { overflow: hidden; }
   animation: pl-rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .pl-dock--under { visibility: hidden; }
+/* Im Ruhezustand halbtransparent: die Seite scheint weichgezeichnet durch,
+   damit Text dahinter nicht mit dem Player-Text kollidiert. Maus darüber oder
+   Tastaturfokus macht ihn solide. Nur bei Maus/Trackpad — Touch kennt kein
+   Hover. Ein Ladefehler bleibt solide, damit man ihn sieht. */
+@media (hover: hover) and (pointer: fine) {
+  .pl-dock {
+    background: rgba(42, 32, 24, 0.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: 0 16px 40px -16px rgba(42, 32, 24, 0.35);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pl-dock > * { opacity: 0.8; transition: opacity 0.25s ease; }
+  .pl-dock:is(:hover, :focus-within),
+  .pl-dock:has(.pl-play[data-status="error"]) {
+    background: var(--pl-bg);
+    box-shadow:
+      0 24px 60px -12px rgba(42, 32, 24, 0.45),
+      0 2px 6px rgba(42, 32, 24, 0.2);
+  }
+  .pl-dock:is(:hover, :focus-within) > *,
+  .pl-dock:has(.pl-play[data-status="error"]) > * { opacity: 1; }
+}
 @keyframes pl-rise {
   from { opacity: 0; transform: translateY(24px); }
 }
