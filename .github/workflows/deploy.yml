@@ -56,3 +56,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  keepalive:
+    # GitHub deaktiviert zeitgesteuerte Workflows nach 60 Tagen ohne Commit
+    # (so geschehen am 22.08.2026 — danach kamen keine neuen Folgen mehr).
+    # Das Re-Enable per API setzt diesen Zähler bei jedem Lauf zurück,
+    # ganz ohne Dummy-Commits.
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Keep daily rebuild alive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/deploy.yml/enable"
