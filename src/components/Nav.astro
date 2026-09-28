@@ -44,12 +44,13 @@ const home = asset('');
 </nav>
 
 <script>
-  const nav = document.getElementById('main-nav');
-  const toggle = nav?.querySelector<HTMLButtonElement>('.nav-toggle');
-  const backdrop = nav?.querySelector<HTMLElement>('.nav-backdrop');
-  const menuLinks = nav?.querySelectorAll<HTMLAnchorElement>('.nav-menu a');
+  // Die Navigation wird bei jedem Seitenwechsel neu gerendert — daher immer
+  // das aktuelle Element suchen statt es einmalig zu merken.
+  const currentNav = () => document.getElementById('main-nav');
 
   function setOpen(open: boolean) {
+    const nav = currentNav();
+    const toggle = nav?.querySelector<HTMLButtonElement>('.nav-toggle');
     if (!nav || !toggle) return;
     nav.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -57,20 +58,26 @@ const home = asset('');
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  toggle?.addEventListener('click', () => {
-    setOpen(!nav?.classList.contains('open'));
+  // Pro Seite: Schalter, Hintergrund und Menülinks der neuen Seite binden.
+  document.addEventListener('astro:page-load', () => {
+    const nav = currentNav();
+    if (!nav) return;
+    nav
+      .querySelector<HTMLButtonElement>('.nav-toggle')
+      ?.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    nav.querySelector<HTMLElement>('.nav-backdrop')?.addEventListener('click', () => setOpen(false));
+    nav
+      .querySelectorAll<HTMLAnchorElement>('.nav-menu a')
+      .forEach((a) => a.addEventListener('click', () => setOpen(false)));
   });
 
-  backdrop?.addEventListener('click', () => setOpen(false));
-  menuLinks?.forEach((a) => a.addEventListener('click', () => setOpen(false)));
-
+  // Einmal global
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav?.classList.contains('open')) setOpen(false);
+    if (e.key === 'Escape' && currentNav()?.classList.contains('open')) setOpen(false);
   });
 
   // Close drawer when viewport grows past the mobile breakpoint
-  const mql = window.matchMedia('(min-width: 961px)');
-  mql.addEventListener('change', (e) => {
+  window.matchMedia('(min-width: 961px)').addEventListener('change', (e) => {
     if (e.matches) setOpen(false);
   });
 </script>

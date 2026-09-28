@@ -1,0 +1,40 @@
+---
+// Player-Wurzel für jede Seite: Folgen-Katalog als JSON + die Player-Oberfläche.
+// transition:persist hält den Player über Seitenwechsel hinweg am Leben.
+import { getImage } from 'astro:assets';
+import { episodes } from '~/data/episodes';
+import Player from './Player.tsx';
+
+const playable = episodes.filter((e) => e.audio);
+
+// Podigee-Artwork ist 0,5–2 MB groß — für den Player reichen 400 px WebP.
+const optimized = new Map<string, string>();
+for (const src of new Set(playable.map((e) => e.image).filter(Boolean))) {
+  try {
+    const img = await getImage({ src, width: 400, height: 400, format: 'webp' });
+    optimized.set(src, img.src);
+  } catch {
+    optimized.set(src, src);
+  }
+}
+
+const catalog = playable.map((e) => ({
+  id: e.id,
+  show: e.show,
+  cls: e.cls,
+  ep: e.ep,
+  title: e.title,
+  desc: e.desc,
+  url: e.url,
+  audio: e.audio,
+  dur: e.durSec,
+  image: optimized.get(e.image) ?? e.image,
+  transcript: e.transcript,
+  date: e.pubDate.toISOString(),
+}));
+
+const json = JSON.stringify(catalog).replace(/</g, '\\u003c');
+---
+
+<script type="application/json" id="ll-catalog" set:html={json} />
+<Player client:load transition:persist="ll-player" />

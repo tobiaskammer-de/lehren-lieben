@@ -1,6 +1,8 @@
 ---
 import '~/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { asset } from '~/lib/url';
+import PlayerHost from '~/components/player/PlayerHost.astro';
 
 interface Props {
   title?: string;
@@ -36,39 +38,51 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+
+    <!-- Seitenwechsel ohne Neuladen: der Podcast-Player spielt dabei weiter. -->
+    <ClientRouter />
   </head>
   <body>
     <slot />
+    <PlayerHost />
 
     <script>
-      // Nav scroll state
-      const nav = document.querySelector<HTMLElement>('#main-nav');
-      if (nav) {
-        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 50);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-      }
+      import { initPlayer } from '~/lib/player/bind';
 
-      // Reveal on scroll
-      const reveals = document.querySelectorAll<HTMLElement>('.reveal');
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('visible');
-              io.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.1 },
-      );
-      reveals.forEach((el) => io.observe(el));
-      // Hero always visible shortly after load (above the fold)
-      setTimeout(() => {
-        document
-          .querySelectorAll<HTMLElement>('#hero .reveal')
-          .forEach((el) => el.classList.add('visible'));
-      }, 80);
+      // Läuft einmal — der Client-Router lädt die Seite danach nicht neu.
+      initPlayer();
+
+      const updateNav = () =>
+        document.getElementById('main-nav')?.classList.toggle('scrolled', window.scrollY > 50);
+      window.addEventListener('scroll', updateNav, { passive: true });
+
+      let io: IntersectionObserver | null = null;
+
+      // Nach jedem (Seiten-)Laden: Navigation und Reveal-Animation für die neue Seite.
+      document.addEventListener('astro:page-load', () => {
+        updateNav();
+
+        io?.disconnect();
+        io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io?.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+        document.querySelectorAll<HTMLElement>('.reveal:not(.visible)').forEach((el) => io?.observe(el));
+
+        // Hero immer kurz nach dem Laden zeigen (above the fold)
+        setTimeout(() => {
+          document
+            .querySelectorAll<HTMLElement>('#hero .reveal')
+            .forEach((el) => el.classList.add('visible'));
+        }, 80);
+      });
     </script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 ---
 import { latestFor } from '~/data/episodes';
+import { GLYPH } from '~/lib/player/markup';
 
 const latestAmber = latestFor('amber');
 const latestTeal = latestFor('teal');
@@ -51,15 +52,27 @@ const tealHref =
             rel="noopener"
             class="pc-plat amber">Apple</a>
         </div>
-        <a
-          href={amberHref}
-          target="_blank"
-          rel="noopener"
-          class="btn btn-amber"
-          style="font-size: 13px;"
-        >
-          Neueste Folge
-        </a>
+        {
+          latestAmber?.audio ? (
+            <button
+              type="button"
+              class="btn btn-amber pc-play"
+              data-play={latestAmber.id}
+              data-state="new"
+              aria-pressed="false"
+              aria-label={`Neueste Folge hören: ${latestAmber.title}`}
+            >
+              <Fragment set:html={GLYPH} />
+              <span data-play-label data-label-new="Neueste Folge hören">
+                Neueste Folge hören
+              </span>
+            </button>
+          ) : (
+            <a href={amberHref} target="_blank" rel="noopener" class="btn btn-amber" style="font-size: 13px;">
+              Neueste Folge
+            </a>
+          )
+        }
       </div>
 
       <div class="podcast-card teal reveal reveal-d1">
@@ -93,15 +106,27 @@ const tealHref =
             rel="noopener"
             class="pc-plat teal">Apple</a>
         </div>
-        <a
-          href={tealHref}
-          target="_blank"
-          rel="noopener"
-          class="btn btn-teal"
-          style="font-size: 13px;"
-        >
-          Neueste Folge
-        </a>
+        {
+          latestTeal?.audio ? (
+            <button
+              type="button"
+              class="btn btn-teal pc-play"
+              data-play={latestTeal.id}
+              data-state="new"
+              aria-pressed="false"
+              aria-label={`Neueste Folge hören: ${latestTeal.title}`}
+            >
+              <Fragment set:html={GLYPH} />
+              <span data-play-label data-label-new="Neueste Folge hören">
+                Neueste Folge hören
+              </span>
+            </button>
+          ) : (
+            <a href={tealHref} target="_blank" rel="noopener" class="btn btn-teal" style="font-size: 13px;">
+              Neueste Folge
+            </a>
+          )
+        }
       </div>
     </div>
   </div>

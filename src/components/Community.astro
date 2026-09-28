@@ -83,17 +83,21 @@ const datenschutz = asset('datenschutz');
 <script>
   // Anmeldung an MailerLite per verstecktem iframe abschicken → kein neuer Tab,
   // Bestätigung erscheint inline. Echte Bestätigung ist die Double-Opt-In-Mail.
-  const form = document.getElementById('newsletter-form');
-  const success = document.getElementById('newsletter-success');
-  const frame = document.querySelector('iframe[name="ml_iframe"]');
-  let submitted = false;
-  form?.addEventListener('submit', () => {
-    submitted = true;
-  });
-  frame?.addEventListener('load', () => {
-    if (!submitted) return; // initiales Laden des iframes ignorieren
-    if (form) form.hidden = true;
-    if (success) success.hidden = false;
+  // Pro Seite binden — nach einem Seitenwechsel sind Formular und iframe neu.
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('newsletter-form');
+    const success = document.getElementById('newsletter-success');
+    const frame = document.querySelector('iframe[name="ml_iframe"]');
+    if (!form) return;
+    let submitted = false;
+    form.addEventListener('submit', () => {
+      submitted = true;
+    });
+    frame?.addEventListener('load', () => {
+      if (!submitted) return; // initiales Laden des iframes ignorieren
+      form.hidden = true;
+      if (success) success.hidden = false;
+    });
   });
 </script>
 

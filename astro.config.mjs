@@ -9,6 +9,10 @@ export default defineConfig({
   site: 'https://lehrenlieben.de',
   integrations: [react()],
   output: 'static',
+  // Podigee-Artwork wird beim Build auf kleine WebP-Dateien verkleinert (Player).
+  image: {
+    domains: ['images.podigee-cdn.net', 'main.podigee-cdn.net'],
+  },
   vite: {
     plugins: [tailwindcss()],
   },
