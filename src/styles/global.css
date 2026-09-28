@@ -533,26 +533,6 @@ section { padding: 110px 0; }
   line-height: 1.7;
   margin-bottom: 22px;
 }
-.ep-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.ep-duration { font-size: 13px; color: var(--color-muted2); }
-.ep-btn {
-  padding: 7px 18px;
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1.5px solid;
-  text-decoration: none;
-  transition: opacity 0.15s;
-  background: transparent;
-  cursor: pointer;
-}
-.ep-btn.amber { border-color: var(--color-amber); color: var(--color-amber); }
-.ep-btn.teal  { border-color: var(--color-teal);  color: var(--color-teal); }
-.ep-btn:hover { opacity: 0.65; }
 
 .random-bar {
   background: #fff;
@@ -1475,16 +1455,6 @@ footer {
   margin-bottom: 22px;
   flex: 1;
 }
-.ep-tile-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(42, 32, 24, 0.07);
-  font-size: 13px;
-  color: var(--color-muted2);
-}
 .ep-date {
   font-size: 13px;
   font-weight: 500;
@@ -1673,44 +1643,113 @@ footer {
 }
 @keyframes ll-spin { to { transform: rotate(360deg); } }
 
-/* Karten-Button: Pill (Frisch raus, Zufallsfolge) und rund (Archiv) */
-.ep-play {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
+/* Player-Leiste auf Folgen-Karten: Play-Kreis, Aufforderung, Zeitleiste, Restzeit.
+   Die ganze Karte ist klickbar (bind.ts), die Leiste zeigt, was dann passiert. */
+.ep-card { display: flex; flex-direction: column; }
+.ep-listen { margin-top: auto; }
+[data-ep-card]:has([data-play]) { cursor: pointer; }
+
+.ep-strip {
+  --c: var(--color-amber);
+  --tint: rgba(232, 149, 58, 0.13);
+  --tint-strong: rgba(232, 149, 58, 0.24);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  grid-template-areas:
+    'play label label'
+    'play track dur';
+  column-gap: 14px;
+  row-gap: 6px;
+  width: 100%;
+  padding: 12px 18px 12px 12px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--tint);
   color: var(--color-ink);
-  transition: transform 0.15s, filter 0.15s;
+  font-family: var(--font-sans);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
 }
-.ep-play.amber { background: var(--color-amber); }
-.ep-play.teal { background: var(--color-teal); }
-.ep-play:hover { filter: brightness(1.06); }
-.ep-play:active { transform: scale(0.97); }
-.ep-play:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-.ep-play--pill {
-  min-height: 44px;
-  padding: 5px 18px 5px 5px;
-  border-radius: 999px;
+.ep-strip.teal {
+  --c: var(--color-teal);
+  --tint: rgba(37, 179, 151, 0.12);
+  --tint-strong: rgba(37, 179, 151, 0.22);
 }
-.ep-play--pill .ep-play-glyph {
-  width: 34px;
-  height: 34px;
+.ep-strip .ep-play-glyph {
+  grid-area: play;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: rgba(42, 32, 24, 0.14);
+  background: var(--c);
+  box-shadow: 0 8px 18px -8px var(--c);
+  transition: transform 0.2s;
 }
-.ep-play--round {
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.ep-strip .g-play { width: 20px; height: 20px; margin-left: 2px; }
+.ep-strip .g-pause { width: 20px; height: 20px; }
+.ep-strip .g-eq { height: 18px; gap: 3px; }
+.ep-strip .g-eq i { width: 4px; }
+.ep-strip .g-wait { width: 20px; height: 20px; }
+.ep-strip-label {
+  grid-area: label;
+  align-self: end;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
 }
-.ep-play--round .ep-play-glyph svg { width: 18px; height: 18px; }
-.ep-play-label { white-space: nowrap; }
+.ep-strip-track {
+  grid-area: track;
+  align-self: start;
+  height: 4px;
+  margin-top: 6px;
+  border-radius: 4px;
+  background: rgba(42, 32, 24, 0.1);
+  overflow: hidden;
+}
+.ep-strip-fill {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  transform-origin: left;
+  transform: scaleX(var(--ep-progress, 0));
+  transition: transform 0.9s linear, opacity 0.3s;
+}
+.ep-strip-dur {
+  grid-area: dur;
+  align-self: start;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--color-ink2);
+  opacity: 0.75;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-ep-card]:hover .ep-strip,
+.ep-strip:hover,
+.ep-strip:focus-visible,
+.ep-strip:is([data-state="playing"], [data-state="loading"]) {
+  background: var(--tint-strong);
+  box-shadow: 0 12px 26px -16px var(--c);
+}
+[data-ep-card]:hover .ep-strip .ep-play-glyph,
+.ep-strip:hover .ep-play-glyph,
+.ep-strip:focus-visible .ep-play-glyph { transform: scale(1.07); }
+.ep-strip:active .ep-play-glyph { transform: scale(0.95); }
+.ep-strip:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+.ep-strip[data-state="new"] .ep-strip-fill { opacity: 0; }
+.ep-strip[data-state="done"] .ep-strip-fill { opacity: 0.4; }
+
+/* Unter der Leiste: Datum links, Shownotes rechts */
+.ep-listen-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 0 4px;
+}
 
 /* "Neueste Folge hören" auf den Podcast-Karten */
 .pc-play {
@@ -1726,7 +1765,7 @@ footer {
 .pc-play .ep-play-glyph svg { width: 13px; height: 13px; }
 .pc-play .g-eq { height: 12px; }
 
-/* Shownotes-Link neben dem Button */
+/* Shownotes-Link unter der Player-Leiste */
 .ep-link {
   margin-left: auto;
   font-size: 13px;
@@ -1737,32 +1776,6 @@ footer {
   text-underline-offset: 3px;
 }
 .ep-link:hover { color: var(--color-ink2); text-decoration-color: currentColor; }
-
-/* Archiv-Kachel: Button, dann Dauer/Datum, Shownotes rechts */
-.ep-tile .ep-tile-footer { justify-content: flex-start; }
-.ep-tile-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1.3;
-}
-
-/* Fortschritt: Linie an der Unterkante der Karte, in der Farbe der Show */
-.ep-card,
-.ep-tile { overflow: hidden; }
-.ep-progress {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: calc(var(--ep-progress, 0) * 100%);
-  background: var(--color-amber);
-  pointer-events: none;
-  transition: width 0.9s linear, opacity 0.3s;
-}
-[data-cls="teal"] > .ep-progress { background: var(--color-teal); }
-[data-state="new"] > .ep-progress { opacity: 0; }
-[data-state="done"] > .ep-progress { opacity: 0.35; }
 
 /* Zufallsfolge */
 #random-result { margin-top: 20px; }
@@ -2294,5 +2307,6 @@ html:has(.pl-sheet) { overflow: hidden; }
   .pl-dock-sub.is-live { animation: none; }
   .g-eq i { animation: none; transform: scaleY(0.7); }
   .pl-lines li button,
-  .ep-progress { transition: none; }
+  .ep-strip-fill,
+  .ep-strip .ep-play-glyph { transition: none; }
 }

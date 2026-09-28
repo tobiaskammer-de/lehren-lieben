@@ -2,18 +2,12 @@
 import Layout from '~/layouts/Layout.astro';
 import Nav from '~/components/Nav.astro';
 import Footer from '~/components/Footer.astro';
-import PlayButton from '~/components/player/PlayButton.astro';
+import Listen from '~/components/player/Listen.astro';
 import { episodes } from '~/data/episodes';
 
 const amberCount = episodes.filter((e) => e.cls === 'amber').length;
 const tealCount = episodes.filter((e) => e.cls === 'teal').length;
 const totalCount = episodes.length;
-
-const dateFmt = new Intl.DateTimeFormat('de-DE', {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
-});
 ---
 
 <Layout
@@ -78,21 +72,7 @@ const dateFmt = new Intl.DateTimeFormat('de-DE', {
               </div>
               <h2 class="ep-title">{e.title}</h2>
               <p class="ep-desc">{e.desc}</p>
-              <div class="ep-tile-footer">
-                <PlayButton ep={e} variant="round" />
-                <span class="ep-tile-facts">
-                  {e.dur && (
-                    <span class="ep-duration" data-ep-dur>
-                      {e.dur}
-                    </span>
-                  )}
-                  <span class="ep-date">{dateFmt.format(e.pubDate)}</span>
-                </span>
-                <a class="ep-link" href={e.url} target="_blank" rel="noopener">
-                  Shownotes
-                </a>
-              </div>
-              <span class="ep-progress" aria-hidden="true" />
+              <Listen ep={e} />
             </article>
           ))
         }

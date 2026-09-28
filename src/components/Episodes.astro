@@ -1,7 +1,7 @@
 ---
 import { latestTwo } from '~/data/episodes';
 import { asset } from '~/lib/url';
-import PlayButton from '~/components/player/PlayButton.astro';
+import Listen from '~/components/player/Listen.astro';
 
 const latest = latestTwo();
 const allEpisodesHref = asset('episoden/');
@@ -40,18 +40,7 @@ const allEpisodesHref = asset('episoden/');
             </div>
             <h3 class="ep-title">{e.title}</h3>
             <p class="ep-desc">{e.desc}</p>
-            <div class="ep-footer">
-              <PlayButton ep={e} />
-              {e.dur && (
-                <span class="ep-duration" data-ep-dur>
-                  {e.dur}
-                </span>
-              )}
-              <a href={e.url} target="_blank" rel="noopener" class="ep-link">
-                Shownotes
-              </a>
-            </div>
-            <span class="ep-progress" aria-hidden="true" />
+            <Listen ep={e} />
           </article>
         ))
       }

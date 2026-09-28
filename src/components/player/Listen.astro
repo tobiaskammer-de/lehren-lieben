@@ -1,0 +1,16 @@
+---
+// Abspielbereich einer Folgen-Karte: Player-Leiste, darunter Datum und Shownotes.
+// Gleiches Markup wie die Zufallsfolge (bind.ts), daher aus markup.ts.
+import type { Episode } from '~/data/episodes';
+import { dateLabel, listenMetaHTML, playStripHTML } from '~/lib/player/markup';
+
+interface Props {
+  ep: Pick<Episode, 'id' | 'cls' | 'title' | 'audio' | 'url' | 'dur' | 'pubDate'>;
+}
+
+const { ep } = Astro.props;
+---
+
+<div class="ep-listen">
+  <Fragment set:html={playStripHTML(ep, ep.dur) + listenMetaHTML(ep, dateLabel(ep.pubDate))} />
+</div>
