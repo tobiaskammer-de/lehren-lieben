@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -7,7 +8,8 @@ import tailwindcss from '@tailwindcss/vite';
 // When moving to Vercel later: add `@astrojs/vercel` back as `adapter: vercel()`.
 export default defineConfig({
   site: 'https://lehrenlieben.de',
-  integrations: [react()],
+  // Sitemap für Suchmaschinen (sitemap-index.xml); robots.txt in public/ verweist darauf.
+  integrations: [react(), sitemap()],
   output: 'static',
   // Podigee-Artwork wird beim Build auf kleine WebP-Dateien verkleinert (Player).
   image: {
